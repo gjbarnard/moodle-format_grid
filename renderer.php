@@ -218,7 +218,11 @@ class format_grid_renderer extends format_section_renderer_base {
             $url_pic_edit) {
         global $USER;
 
-        $url_pic_new_activity = $this->output->pix_url('new_activity', 'format_grid');
+		$currentlanguage = current_language();
+		if ( !file_exists("$CFG->dirroot/course/format/grid/pix/new_activity_".$currentlanguage.".png") ) {
+		  $currentlanguage = 'en';
+		}
+		$url_pic_new_activity = $this->output->pix_url('new_activity_'.$currentlanguage, 'format_grid');
 
         if ($editing) {
             $str_edit_image = get_string('editimage', 'format_grid');
