@@ -225,4 +225,25 @@ body.jsenabled #gridshadebox_content.hide_content {
     margin: 0 15px 10px;
 }
 
+/*for decaf:*/
+ top: 36px !important;
+
+}
+
+/*make whole left and right side the button, no searching vertically for the position of the button anymore*/
+img#gridshadebox_right.gridshadebox_arrow
+{
+  height: 98%;
+  right: -1px;
+  top: 10px !important;
+  width: 25px;
+}
+img#gridshadebox_left.gridshadebox_arrow
+{
+  height: 98%;
+  left: -1px;
+  top: 10px !important;
+  width: 25px;
+}
+
 /* @end */
