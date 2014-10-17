@@ -230,7 +230,8 @@ body.jsenabled #gridshadebox_content.hide_content {
 
 }
 
-/*make whole left and right side the button, no searching vertically for the position of the button anymore*/
+/*this makes whole left and right side the button, no searching vertically for the position of the button anymore*/
+/*added also  arrow_l and arrow_r to pix/ */
 img#gridshadebox_right.gridshadebox_arrow
 {
   height: 98%;
