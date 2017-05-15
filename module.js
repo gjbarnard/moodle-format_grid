@@ -81,6 +81,10 @@ M.format_grid.init = function(Y, the_editing_on, the_section_redirect, the_num_s
         Y.all(".grid_section").removeClass('hide_section');
     } else {
         Y.delegate('click', this.icon_click, Y.config.doc, 'ul.gridicons a.gridicon_link', this);
+        var navdrawer = M.format_grid.ourYUI.one('#nav-drawer'); // Boost theme.
+        if (navdrawer) {
+            Y.delegate('click', this.navdrawerclick, '#nav-drawer', 'a', this);
+        }
 
         var shadeboxtoggleone = Y.one("#gridshadebox_overlay");
         if (shadeboxtoggleone) {
@@ -148,6 +152,31 @@ M.format_grid.icon_click = function(e) {
     this.update_selected_background(previous_no);
     this.icon_toggle(e);
 };
+
+/**
+ * Called in Boost theme when a section in the navdraw has been clicked.
+ * @param {object} e Click event.
+ * @return {boolean | null} Returns true if event is to be triggered normally.
+ */
+M.format_grid.navdrawerclick = function(e) {
+    "use strict";
+    var re = /section\-([0-9]+)/g;
+    var menuindex = false;
+    try {
+        menuindex = e.currentTarget.get('href').match(re)[0].replace("section-", "");
+        if (menuindex == 0) {
+            return true;
+        }
+    } catch (ex) {
+        return true;
+    }
+    e.preventDefault();
+    var previousno = this.selected_section_no;
+    this.selected_section_no = menuindex;
+    this.update_selected_background(previousno);
+    this.icon_toggle(e);
+    return null;
+}
 
 /**
  * Called when the user tabs and the item is a grid icon.
