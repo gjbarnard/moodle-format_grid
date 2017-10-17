@@ -823,7 +823,9 @@ class format_grid_renderer extends format_section_renderer_base {
                     if ($this->settings['sectiontitleboxposition'] == 1) {
                         echo html_writer::tag('div', $displaysectionname, $sectiontitleattribues);
                     }
-
+                    
+                    echo html_writer::tag('div', "accessibletooltip", array("class"=>"sr-only"));
+                    
                     echo $this->output_section_image($section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath);
 
                     echo html_writer::end_tag('div');
@@ -859,6 +861,11 @@ class format_grid_renderer extends format_section_renderer_base {
 
                     $content .= $this->output_section_image($section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath);
 
+                    $summary = strip_tags($thissection->summary);
+                    $summary = str_replace("&nbsp;", ' ', $summary);
+            
+                    $content .= html_writer::tag('p', $summary, array("class"=>"sr-only"));
+        
                     $content .= html_writer::end_tag('div');
 
                     if ($editing) {
@@ -1117,7 +1124,7 @@ class format_grid_renderer extends format_section_renderer_base {
             $title = trim(clean_param($title, PARAM_NOTAGS));
         }
 
-        if (core_text::strlen($title) > 40) {
+        if (strlen($title) > 40) {
             $title = $this->text_limit($title, 40);
         }
 
@@ -1138,13 +1145,13 @@ class format_grid_renderer extends format_section_renderer_base {
      * Cuts long texts up to certain length without breaking words.
      */
     private function text_limit($text, $length, $replacer = '...') {
-        if (core_text::strlen($text) > $length) {
+        if (strlen($text) > $length) {
             $text = wordwrap($text, $length, "\n", true);
             $pos = strpos($text, "\n");
             if ($pos === false) {
                 $pos = $length;
             }
-            $text = trim(core_text::substr($text, 0, $pos)) . $replacer;
+            $text = trim(substr($text, 0, $pos)) . $replacer;
         }
         return $text;
     }
