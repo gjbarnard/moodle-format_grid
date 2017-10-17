@@ -413,7 +413,7 @@ define(['jquery', 'core/log'], function($, log) {
     GridTooltip.prototype.fixTitle = function () {
         var $e = this.$element
         if ($e.attr('title') || typeof $e.attr('data-original-title') != 'string') {
-            $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
+            $e.attr('data-original-title', $e.attr('title') || '')
         }
     }
 
@@ -595,4 +595,5 @@ define(['jquery', 'core/log'], function($, log) {
         }
     }
 });
+
 /* jshint ignore:end */
