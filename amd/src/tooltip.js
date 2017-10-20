@@ -11,8 +11,7 @@
  * @license    Chartist is MIT licenced: https://raw.githubusercontent.com/gionkunz/chartist-js/master/LICENSE-MIT
  */
 
-/* jshint ignore:start */
-define(['jquery', 'core/log'], function($, log) {
+/* jshint ignore:start */define(['jquery', 'core/log'], function($, log) {
 
     "use strict"; // jshint ;_;
 
@@ -129,7 +128,7 @@ define(['jquery', 'core/log'], function($, log) {
         var triggers = this.options.trigger.split(' ')
 
         for (var i = triggers.length; i--;) {
-            var trigger = triggers[i]
+            var trigger = triggers[i];
 
             if (trigger == 'click') {
                 this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
@@ -144,7 +143,7 @@ define(['jquery', 'core/log'], function($, log) {
 
         this.options.selector ?
             (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
-            this.fixTitle()
+			this.fixTitle()
     }
 
     GridTooltip.prototype.getDefaults = function () {
@@ -176,6 +175,7 @@ define(['jquery', 'core/log'], function($, log) {
     }
 
     GridTooltip.prototype.enter = function (obj) {
+	
         var self = obj instanceof this.constructor ?
             obj : $(obj.currentTarget).data('bs.' + this.type)
 
@@ -239,10 +239,10 @@ define(['jquery', 'core/log'], function($, log) {
     }
 
     GridTooltip.prototype.show = function () {
-        var e = $.Event('show.bs.' + this.type)
+		var e = $.Event('show.bs.' + this.type)
 
         if (this.hasContent() && this.enabled) {
-            this.$element.trigger(e)
+			this.$element.trigger(e)
 
             var inDom = $.contains(this.$element[0].ownerDocument.documentElement, this.$element[0])
             if (e.isDefaultPrevented() || !inDom) return
@@ -250,7 +250,7 @@ define(['jquery', 'core/log'], function($, log) {
 
             var $tip = this.tip()
 
-            var tipId = this.getUID(this.type)
+            var tipId = "describedBy" + this.$element.attr('id');
 
             this.setContent()
             $tip.attr('id', tipId)
@@ -310,7 +310,7 @@ define(['jquery', 'core/log'], function($, log) {
                 $tip
                     .one('bsTransitionEnd', complete)
                     .emulateTransitionEnd(GridTooltip.TRANSITION_DURATION) :
-                complete()
+                complete()	
         }
     }
 
@@ -413,7 +413,7 @@ define(['jquery', 'core/log'], function($, log) {
     GridTooltip.prototype.fixTitle = function () {
         var $e = this.$element
         if ($e.attr('title') || typeof $e.attr('data-original-title') != 'string') {
-            $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
+            $e.attr('data-original-title', $e.attr('title') || '')
         }
     }
 
@@ -497,7 +497,8 @@ define(['jquery', 'core/log'], function($, log) {
 
     GridTooltip.prototype.tip = function () {
         if (!this.$tip) {
-            this.$tip = $(this.options.template)
+            console.log("in the tip");
+			this.$tip = $(this.options.template)
             if (this.$tip.length != 1) {
                 throw new Error(this.type + ' `template` option must consist of exactly 1 top-level element!')
             }
@@ -589,10 +590,11 @@ define(['jquery', 'core/log'], function($, log) {
     return {
         init: function() {
             $(document).ready(function($) {
-                $("[data-toggle=gridtooltip]").gridtooltip();
+                $(".gridicon_link").gridtooltip();
             });
             log.debug('Grid Format AMD init');
         }
     }
 });
+
 /* jshint ignore:end */

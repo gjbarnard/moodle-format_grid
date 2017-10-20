@@ -158,34 +158,34 @@ div#gridmiddle-column > ul {
     right: 0;
 }
 
-.course-content ul.gridicons li .gridicon_link .tooltip {
+.course-content ul.gridicons li .tooltip {
     font-size: 14px;
 }
 
 /* Set the width of the tooltip when the section summary is 'Inside', thus within the 'image_holder'. */
-.course-content ul.gridicons li .gridicon_link .image_holder .tooltip {
+.course-content ul.gridicons li .image_holder .tooltip {
     width: 100%;
 }
 
-.course-content ul.gridicons li .gridicon_link .tooltip-inner {
+.course-content ul.gridicons li .tooltip-inner {
     background-color: #ffc540;
     color: #3b53ad;
     max-width: none;
 }
 
-.course-content ul.gridicons li .gridicon_link .tooltip.top .tooltip-arrow {
+.course-content ul.gridicons li .tooltip.top .tooltip-arrow {
     border-top-color: #ffc540;
 }
 
-.course-content ul.gridicons li .gridicon_link .tooltip.bottom .tooltip-arrow {
+.course-content ul.gridicons li .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #ffc540;
 }
 
-.course-content ul.gridicons li .gridicon_link .tooltip.left .tooltip-arrow {
+.course-content ul.gridicons li .tooltip.left .tooltip-arrow {
     border-left-color: #ffc540;
 }
 
-.course-content ul.gridicons li .gridicon_link .tooltip.right .tooltip-arrow {
+.course-content ul.gridicons li .tooltip.right .tooltip-arrow {
     border-right-color: #ffc540;
 }
 
