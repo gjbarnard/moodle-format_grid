@@ -266,9 +266,15 @@
             var autoPlace = autoToken.test(placement)
             if (autoPlace) placement = placement.replace(autoToken, '') || 'top'
 
+            var css = { top: 0, left: 0, display: 'block' };
+            
+            if(placement=="left"){
+                css.width = (this.getPosition().left <= 100 ) ? 150 : this.getPosition().left;
+            }
+
             $tip
                 .detach()
-                .css({ top: 0, left: 0, display: 'block' })
+                .css(css)
                 .addClass(placement)
                 .data('bs.' + this.type, this)
 
@@ -497,8 +503,7 @@
 
     GridTooltip.prototype.tip = function () {
         if (!this.$tip) {
-            console.log("in the tip");
-			this.$tip = $(this.options.template)
+            this.$tip = $(this.options.template)
             if (this.$tip.length != 1) {
                 throw new Error(this.type + ' `template` option must consist of exactly 1 top-level element!')
             }
