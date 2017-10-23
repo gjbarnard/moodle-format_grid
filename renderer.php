@@ -429,6 +429,7 @@ class format_grid_renderer extends format_section_renderer_base {
                 'class' => $deviceextra,
                 'src' => $this->output->image_url('close', 'format_grid'),
                 'role' => 'link',
+                'alt' => get_string('closeshadebox', 'format_grid'),
                 'aria-label' => get_string('closeshadebox', 'format_grid')));
 
             // Only show the arrows if there is more than one box shown.
@@ -448,7 +449,11 @@ class format_grid_renderer extends format_section_renderer_base {
                     'role' => 'link',
                     'aria-label' => get_string('previoussection', 'format_grid')));
                 $prev .= html_writer::tag('img', '', array('class' => 'gridshadebox_arrow gridshadebox_previous'.$deviceextra,
-                    'src' => $this->output->image_url('fa-arrow-circle-'.$previcon.'-w', 'format_grid')));
+                    'src' => $this->output->image_url('fa-arrow-circle-'.$previcon.'-w', 'format_grid'),
+                    'alt' => get_string('previoussection', 'format_grid'),
+                    'aria-label' => get_string('previoussection', 'format_grid')
+                    )
+                    );
                 $prev .= html_writer::end_tag('div');
                 $next = html_writer::start_tag('div', array('id' => 'gridshadebox_next',
                     'class' => 'gridshadebox_area gridshadebox_next_area '.$areadir,
@@ -456,7 +461,11 @@ class format_grid_renderer extends format_section_renderer_base {
                     'role' => 'link',
                     'aria-label' => get_string('nextsection', 'format_grid')));
                 $next .= html_writer::tag('img', '', array('class' => 'gridshadebox_arrow gridshadebox_next'.$deviceextra,
-                    'src' => $this->output->image_url('fa-arrow-circle-'.$nexticon.'-w', 'format_grid')));
+                    'src' => $this->output->image_url('fa-arrow-circle-'.$nexticon.'-w', 'format_grid'),
+                    'alt' => get_string('nextsection', 'format_grid'),
+                    'aria-label' => get_string('nextsection', 'format_grid')
+                    )
+                );
                 $next .= html_writer::end_tag('div');
 
                 if ($rtl) {
