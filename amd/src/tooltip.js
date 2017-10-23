@@ -128,7 +128,7 @@
         var triggers = this.options.trigger.split(' ')
 
         for (var i = triggers.length; i--;) {
-            var trigger = triggers[i];
+            var trigger = triggers[i]
 
             if (trigger == 'click') {
                 this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
