@@ -745,8 +745,7 @@ class format_grid_renderer extends format_section_renderer_base {
                     $sectionnamelen = core_text::strlen($displaysectionname);
                     if ($sectionnamelen !== false) {
                         if ($sectionnamelen > $this->settings['sectiontitlegridlengthmaxoption']) {
-                            $displaysectionname = 
-                                core_text::substr($displaysectionname, 0, $this->settings['sectiontitlegridlengthmaxoption']).'...';
+                            $displaysectionname = core_text::substr($displaysectionname, 0, $this->settings['sectiontitlegridlengthmaxoption']).'...';
                         }
                     }
                 }
@@ -788,8 +787,7 @@ class format_grid_renderer extends format_section_renderer_base {
                         }
                         $sectiontitleattribues['title'] = $summary;
                         $sectiontitleattribues['data-toggle'] = 'gridtooltip';
-                        $sectiontitleattribues['data-placement'] = 
-                            $this->courseformat->get_set_show_section_title_summary_position();
+                        $sectiontitleattribues['data-placement'] = $this->courseformat->get_set_show_section_title_summary_position();
                     }
                 }
 
