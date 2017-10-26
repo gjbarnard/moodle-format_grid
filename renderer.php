@@ -429,6 +429,7 @@ class format_grid_renderer extends format_section_renderer_base {
                 'class' => $deviceextra,
                 'src' => $this->output->image_url('close', 'format_grid'),
                 'role' => 'link',
+                'alt' => get_string('closeshadebox', 'format_grid'),
                 'aria-label' => get_string('closeshadebox', 'format_grid')));
 
             // Only show the arrows if there is more than one box shown.
@@ -448,7 +449,11 @@ class format_grid_renderer extends format_section_renderer_base {
                     'role' => 'link',
                     'aria-label' => get_string('previoussection', 'format_grid')));
                 $prev .= html_writer::tag('img', '', array('class' => 'gridshadebox_arrow gridshadebox_previous'.$deviceextra,
-                    'src' => $this->output->image_url('fa-arrow-circle-'.$previcon.'-w', 'format_grid')));
+                    'src' => $this->output->image_url('fa-arrow-circle-'.$previcon.'-w', 'format_grid'),
+                    'alt' => get_string('previoussection', 'format_grid'),
+                    'aria-label' => get_string('previoussection', 'format_grid')
+                    )
+                    );
                 $prev .= html_writer::end_tag('div');
                 $next = html_writer::start_tag('div', array('id' => 'gridshadebox_next',
                     'class' => 'gridshadebox_area gridshadebox_next_area '.$areadir,
@@ -456,7 +461,11 @@ class format_grid_renderer extends format_section_renderer_base {
                     'role' => 'link',
                     'aria-label' => get_string('nextsection', 'format_grid')));
                 $next .= html_writer::tag('img', '', array('class' => 'gridshadebox_arrow gridshadebox_next'.$deviceextra,
-                    'src' => $this->output->image_url('fa-arrow-circle-'.$nexticon.'-w', 'format_grid')));
+                    'src' => $this->output->image_url('fa-arrow-circle-'.$nexticon.'-w', 'format_grid'),
+                    'alt' => get_string('nextsection', 'format_grid'),
+                    'aria-label' => get_string('nextsection', 'format_grid')
+                    )
+                );
                 $next .= html_writer::end_tag('div');
 
                 if ($rtl) {
@@ -669,7 +678,7 @@ class format_grid_renderer extends format_section_renderer_base {
         // Get the section images for the course.
         $sectionimages = $this->courseformat->get_images($course->id);
 
-        // CONTRIB-4099:...
+        // CONTRIB-4099.
         $gridimagepath = $this->courseformat->get_image_path();
 
         if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
@@ -800,7 +809,12 @@ class format_grid_renderer extends format_section_renderer_base {
                         'href' => '#section-'.$thissection->section,
                         'id' => 'gridsection-'.$thissection->section,
                         'class' => 'gridicon_link',
-                        'role' => 'link'));
+                        'role' => 'link',
+                        'title' => $summary,
+                        'data-original-title' => $summary,
+                        'data-toggle' => 'gridtooltip',
+                        'data-placement' => $this->courseformat->get_set_show_section_title_summary_position())
+                    );
 
                     if ($this->settings['sectiontitleboxposition'] == 2) {
                         echo html_writer::tag('div', $displaysectionname, $sectiontitleattribues);
@@ -824,7 +838,8 @@ class format_grid_renderer extends format_section_renderer_base {
                         echo html_writer::tag('div', $displaysectionname, $sectiontitleattribues);
                     }
 
-                    echo $this->output_section_image($section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath);
+                    echo $this->output_section_image($section, $sectionname, $sectionimage,
+                                                     $contextid, $thissection, $gridimagepath);
 
                     echo html_writer::end_tag('div');
                     echo html_writer::end_tag('a');
@@ -857,7 +872,8 @@ class format_grid_renderer extends format_section_renderer_base {
                         $content .= html_writer::tag('div', $displaysectionname, $sectiontitleattribues);
                     }
 
-                    $content .= $this->output_section_image($section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath);
+                    $content .= $this->output_section_image($section, $sectionname, $sectionimage,
+                                                            $contextid, $thissection, $gridimagepath);
 
                     $content .= html_writer::end_tag('div');
 
@@ -870,7 +886,9 @@ class format_grid_renderer extends format_section_renderer_base {
                             echo html_writer::link($singlepageurl.'#section-'.$thissection->section, $content, array(
                                 'id' => 'gridsection-'.$thissection->section,
                                 'class' => 'gridicon_link',
-                                'role' => 'link'));
+                                'role' => 'link',
+                                'title' => $summary)
+                            );
                         } else {
                             // Need an enclosing 'span' for IE.
                             echo html_writer::tag('span', $content);
