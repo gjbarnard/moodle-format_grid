@@ -118,14 +118,20 @@ div#gridmiddle-column > ul {
     /*rtl:ignore*/
     cursor: url('[[pix:format_grid|fa-hand-o-up-f]]'), auto;
 }
-.course-content ul.gridicons li .icon_content {
-    font-weight: bold;
-    height: 20px;
-    margin: 0;
-    overflow: hidden;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.course-content ul.gridicons li 
+    .icon_content.edit {
+        font-weight: normal;
+        text-align: left;
+        height: auto;
+    }
+    .icon_content {
+        font-weight: bold;
+        height: 20px;
+        margin: 0;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 }
 
 .course-content ul.gridicons li .icon_content.content_inside {

@@ -985,6 +985,14 @@ class format_grid_renderer extends format_section_renderer_base {
         $streditimage = get_string('editimage', 'format_grid');
         $streditimagealt = get_string('editimage_alt', 'format_grid');
 
+        $linkcontent .= html_writer::tag('i', '', array ('class' => 'icon fa fa-cog fa-fw'));
+        $linkcontent .= $streditimage;
+        $linktext = html_writer::div($linkcontent, $class = 'icon_content edit', array ( 
+            'title' => $streditimagealt,
+            'aria-label' => $streditimagealt
+            )
+        );
+
         echo html_writer::link(
             $this->courseformat->grid_moodle_url('editimage.php', array(
                 'sectionid' => $thissection->id,
@@ -993,12 +1001,7 @@ class format_grid_renderer extends format_section_renderer_base {
                 'role' => 'link',
                 'aria-label' => $streditimagealt)
             ),
-            html_writer::empty_tag('img', array(
-                'src' => $urlpicedit,
-                'alt' => $streditimagealt,
-                'role' => 'img',
-                'aria-label' => $streditimagealt)).'&nbsp;'.$streditimage,
-            array('title' => $streditimagealt)
+            $linktext
         );
     }
 
