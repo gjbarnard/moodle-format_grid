@@ -119,5 +119,17 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
         purge_all_caches();
     }
 
+    if ($oldversion < 2016111509) {
+        $table = new xmldb_table('format_grid_icon');
+
+        $field = new xmldb_field('alttext', XMLDB_TYPE_TEXT, null, null, null, null, null);
+
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_plugin_savepoint(true, '2016111509', 'format', 'grid');
+    }
+
     return true;
 }

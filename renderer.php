@@ -954,20 +954,22 @@ class format_grid_renderer extends format_section_renderer_base {
 
     protected function output_section_image($section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath) {
         $content = '';
+        $alttext = isset($sectionimage->alttext) ? $sectionimage->alttext : '';
+
         if (is_object($sectionimage) && ($sectionimage->displayedimageindex > 0)) {
             $imgurl = moodle_url::make_pluginfile_url(
             $contextid, 'course', 'section', $thissection->id, $gridimagepath,
             $sectionimage->displayedimageindex . '_' . $sectionimage->image);
             $content = html_writer::empty_tag('img', array(
                 'src' => $imgurl,
-                'alt' => $sectionname,
+                'alt' => $alttext,
                 'role' => 'img',
                 'aria-label' => $sectionname));
         } else if ($section == 0) {
             $imgurl = $this->output->pix_url('info', 'format_grid');
             $content = html_writer::empty_tag('img', array(
                 'src' => $imgurl,
-                'alt' => $sectionname,
+                'alt' => $alttext,
                 'class' => 'info',
                 'role' => 'img',
                 'aria-label' => $sectionname));

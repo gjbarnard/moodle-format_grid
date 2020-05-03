@@ -1849,7 +1849,7 @@ class format_grid extends format_base {
         }
 
         if (!$sectionimagecontainers = $DB->get_records('format_grid_icon', array('courseid' => $courseid), '',
-                'sectionid, image, displayedimageindex')) {
+                'sectionid, image, displayedimageindex, alttext')) {
             $sectionimagecontainers = false;
         }
         return $sectionimagecontainers;
