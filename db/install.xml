@@ -10,7 +10,8 @@
         <FIELD NAME="image" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="id" NEXT="displayedimageindex"/>
         <FIELD NAME="displayedimageindex" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Used to ensure the browser gets the new image when changed.  Sequence controlled by code." PREVIOUS="image" NEXT="sectionid"/>
         <FIELD NAME="sectionid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" PREVIOUS="displayedimageindex" NEXT="courseid"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" COMMENT="Needed to identify records when deleting a course" PREVIOUS="sectionid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" COMMENT="Needed to identify records when deleting a course" PREVIOUS="sectionid" NEXT="alttext"/>
+        <FIELD NAME="alttext" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="courseid"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
