@@ -1964,7 +1964,7 @@ class format_grid extends format_base {
         }
 
         if (!$sectionimagecontainers = $DB->get_records('format_grid_icon', array('courseid' => $courseid), '',
-                'sectionid, image, displayedimageindex')) {
+                'sectionid, image, displayedimageindex, alttext')) {
             $sectionimagecontainers = false;
         }
         return $sectionimagecontainers;
@@ -2369,6 +2369,8 @@ class format_grid extends format_base {
 
     public function output_section_image($section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath, $output, $iswebp) {
         $content = '';
+        $alttext = isset($sectionimage->alttext) ? $sectionimage->alttext : '';
+
         if (is_object($sectionimage) && ($sectionimage->displayedimageindex > 0)) {
             $filename = $sectionimage->displayedimageindex . '_' . $sectionimage->image;
             if ($iswebp) {
@@ -2380,14 +2382,14 @@ class format_grid extends format_base {
             );
             $content = html_writer::empty_tag('img', array(
                 'src' => $imgurl,
-                'alt' => $sectionname,
+                'alt' => $alttext,
                 'role' => 'img',
                 'aria-label' => $sectionname));
         } else if ($section == 0) {
             $imgurl = $output->image_url('info', 'format_grid');
             $content = html_writer::empty_tag('img', array(
                 'src' => $imgurl,
-                'alt' => $sectionname,
+                'alt' => $alttext,
                 'class' => 'info',
                 'role' => 'img',
                 'aria-label' => $sectionname));

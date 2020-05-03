@@ -42,6 +42,7 @@ $formdata->userid = required_param('userid', PARAM_INT);
 $formdata->offset = optional_param('offset', null, PARAM_INT);
 $formdata->forcerefresh = optional_param('forcerefresh', null, PARAM_INT);
 $formdata->mode = optional_param('mode', null, PARAM_ALPHA);
+$formdata->alttext = optional_param('alttext', null, PARAM_TEXT);
 
 $url = new moodle_url('/course/format/grid/editimage.php', array(
     'contextid' => $contextid,
@@ -69,11 +70,15 @@ $options = array(
     'accepted_types' => array('gif', 'jpe', 'jpeg', 'jpg', 'png'),
     'return_types' => FILE_INTERNAL);
 
+// Fetch the existing grid image record if it exists.
+$alttext = $DB->get_field('format_grid_icon', 'alttext', array('courseid'=>$course->id, 'sectionid'=>$sectionid), IGNORE_MISSING);
+
 $mform = new grid_image_form(null, array(
     'contextid' => $contextid,
     'userid' => $formdata->userid,
     'sectionid' => $sectionid,
-    'options' => $options));
+    'options' => $options,
+    'alttext' => $alttext));
 
 if ($mform->is_cancelled()) {
     // Someone has hit the 'cancel' button.
@@ -83,33 +88,40 @@ if ($mform->is_cancelled()) {
         // Delete the old images....
         $courseformat = course_get_format($course);
         $courseformat->delete_image($sectionid, $context->id);
-    } else if ($newfilename = $mform->get_new_filename('imagefile')) {
-        $fs = get_file_storage();
+    } else {
+        if ($newfilename = $mform->get_new_filename('imagefile')) {
+            $fs = get_file_storage();
 
-        // We have a new file so can delete the old....
-        $courseformat = course_get_format($course);
-        $sectionimage = $courseformat->get_image($course->id, $sectionid);
-        if (isset($sectionimage->image)) {
-            if ($file = $fs->get_file($context->id, 'course', 'section', $sectionid, '/', $sectionimage->image)) {
-                $file->delete();
+            // We have a new file so can delete the old....
+            $courseformat = course_get_format($course);
+            $sectionimage = $courseformat->get_image($course->id, $sectionid);
+            if (isset($sectionimage->image)) {
+                if ($file = $fs->get_file($context->id, 'course', 'section', $sectionid, '/', $sectionimage->image)) {
+                    $file->delete();
+                }
             }
+
+            // Resize the new image and save it...
+            $storedfilerecord = $courseformat->create_original_image_record($contextid, $sectionid, $newfilename);
+
+            $tempfile = $mform->save_stored_file(
+                    'imagefile',
+                    $storedfilerecord['contextid'],
+                    $storedfilerecord['component'],
+                    $storedfilerecord['filearea'],
+                    $storedfilerecord['itemid'],
+                    $storedfilerecord['filepath'],
+                    'temp.' . $storedfilerecord['filename'],
+                    true);
+
+            $courseformat->create_section_image($tempfile, $storedfilerecord, $sectionimage);
         }
 
-        // Resize the new image and save it...
-        $storedfilerecord = $courseformat->create_original_image_record($contextid, $sectionid, $newfilename);
-
-        $tempfile = $mform->save_stored_file(
-                'imagefile',
-                $storedfilerecord['contextid'],
-                $storedfilerecord['component'],
-                $storedfilerecord['filearea'],
-                $storedfilerecord['itemid'],
-                $storedfilerecord['filepath'],
-                'temp.' . $storedfilerecord['filename'],
-                true);
-
-        $courseformat->create_section_image($tempfile, $storedfilerecord, $sectionimage);
+        // Set alt text value regardless of whether image has changed.
+        $conditionsarray = array('courseid' => $course->id, 'sectionid' => $sectionid);
+        $DB->set_field('format_grid_icon', 'alttext', $formdata->alttext, $conditionsarray);
     }
+
     redirect($CFG->wwwroot . "/course/view.php?id=" . $course->id);
 }
 
