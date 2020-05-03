@@ -38,6 +38,10 @@ class grid_image_form extends moodleform {
         // Visible elements.
         $mform->addElement('filepicker', 'imagefile', get_string('imagefile', 'format_grid'), null, $instance['options']);
         $mform->addHelpButton('imagefile', 'imagefile', 'format_grid');
+        $mform->addElement('text', 'alttext', get_string('alttext', 'format_grid'));
+        $mform->setType('alttext', PARAM_TEXT);
+        $mform->setDefault('alttext', $instance['alttext']);
+        $mform->addHelpButton('alttext', 'alttext', 'format_grid');
         $mform->addElement('selectyesno', 'deleteimage', get_string('deleteimage', 'format_grid'));
         $mform->addHelpButton('deleteimage', 'deleteimage', 'format_grid');
 
