@@ -168,7 +168,7 @@ M.format_grid.navdrawerclick = function(e) {
     "use strict";
     var href = e.currentTarget.get('href');
     var sectionref = href.indexOf("#section-");
-    if (sectionref === 0) {
+    if (sectionref <= 0) {
         return true;
     }
     var idx = parseInt(href.substring(sectionref + 9));
