@@ -306,8 +306,6 @@ class format_grid_renderer extends format_section_renderer_base {
             if (!$thissection->visible) {
                 $classes .= ' dimmed_text';
             }
-            $sectionname = html_writer::tag('span', get_section_name($course, $displaysection));
-            $sectiontitle .= $this->output->heading($sectionname, 3, $classes);
 
             $sectiontitle .= html_writer::end_tag('div');
             echo $sectiontitle;
