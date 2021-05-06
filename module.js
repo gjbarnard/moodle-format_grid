@@ -87,9 +87,9 @@ M.format_grid.init = function(Y, the_editing_on, the_section_redirect, the_num_s
         // Show the sections when editing.
         Y.all(".grid_section").removeClass('hide_section');
     } else {
-        var navdrawer = M.format_grid.ourYUI.one('[data-region="drawer"] nav:first-child'); // Flat navigation.
+        var navdrawer = M.format_grid.ourYUI.one('[data-region="drawer"] nav:first-of-type'); // Flat navigation.
         if (navdrawer) {
-            Y.delegate('click', this.navdrawerclick, '[data-region="drawer"] nav:first-child', 'a', this);
+            Y.delegate('click', this.navdrawerclick, '[data-region="drawer"] nav:first-of-type', 'a', this);
         }
         if (this.section_redirect === null) {
             Y.delegate('click', this.icon_click, Y.config.doc, 'ul.gridicons a.gridicon_link', this);
