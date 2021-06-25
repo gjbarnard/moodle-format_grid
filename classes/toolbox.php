@@ -742,6 +742,13 @@ class toolbox {
         $fs = get_file_storage();
         if ($imagecontainerpathfile = $fs->get_file($contextid, 'course', 'section', $sectionimage->sectionid, '/',
                 $sectionimage->newimage)) {
+
+            // Check if the file realy exists. Otherwise do not continue.
+            $filesystemhelper = new file_system_filedir_grid_helper();
+            if (!file_exists($filesystemhelper->get_fulldir_from_hash_grid($imagecontainerpathfile->get_contenthash()))) {
+                return $sectionimage;
+            }
+
             $gridimagepath = self::get_image_path();
             $convertsuccess = true;
             if (!$mime) {
@@ -1222,5 +1229,27 @@ class toolbox {
             $b = substr($hex, 4, 2);
         }
         return array('r' => hexdec($r), 'g' => hexdec($g), 'b' => hexdec($b));
+    }
+}
+
+require_once($CFG->libdir . '/filestorage/file_system_filedir.php');
+/**
+ * Helper class for file system filedir.
+ *
+ * @package   format_grid
+ * @copyright 2021 ISB Bayern
+ * @author    Peter Mayer, peter.mayer@isb.bayern.de
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class file_system_filedir_grid_helper extends \file_system_filedir
+{
+    /**
+     * Calls a protected method from file_system_filedir.
+     * @param string $contenthash
+     * @return string
+     */
+    public function get_fulldir_from_hash_grid($contenthash): string
+    {
+        return $this->get_fulldir_from_hash($contenthash);
     }
 }
