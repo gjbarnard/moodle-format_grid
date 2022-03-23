@@ -665,7 +665,8 @@ class format_grid extends format_base {
                     0,
                     array(
                         1 => new lang_string('sectiontitleboxpositioninside', 'format_grid'),
-                        2 => new lang_string('sectiontitleboxpositionoutside', 'format_grid')
+                        2 => new lang_string('sectiontitleboxpositionoutside', 'format_grid'),
+                        3 => new lang_string('sectiontitleboxpositionbelow', 'format_grid')
                     )
                 );
                 $courseformatoptionsedit['sectiontitleboxposition'] = array(
