@@ -64,10 +64,6 @@ div#gridmiddle-column > ul {
     padding: 0;
 }
 
-.course-content ul.gtopics li.section .content {
-    margin: 0 40px;
-}
-
 .course-content ul.gtopics li.section .side {
     text-align: center;
     width: 40px;
