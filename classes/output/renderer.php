@@ -857,7 +857,7 @@ class renderer extends \format_section_renderer_base {
                         }
                     }
                 }
-                $sectiontitleclass = 'icon_content';
+                $sectiontitleclass = 'icon_content m-1';
                 if ($this->settings['sectiontitleboxposition'] == 1) {
                     // Only bother if there is a section name to show.
                     $canshow = false;
@@ -976,6 +976,12 @@ class renderer extends \format_section_renderer_base {
                         $section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath, $this->output, $iswebp);
 
                     echo html_writer::end_tag('div');
+
+                    // Title under the image.
+                    if ($this->settings['sectiontitleboxposition'] == 3) {
+                        echo html_writer::tag('div', $displaysectionname, $sectiontitleattribues);
+                    }
+
                     echo html_writer::end_tag('a');
 
                     if ($editing) {
@@ -1014,6 +1020,12 @@ class renderer extends \format_section_renderer_base {
                         $section, $sectionname, $sectionimage, $contextid, $thissection, $gridimagepath, $this->output, $iswebp);
 
                     $content .= html_writer::end_tag('div');
+
+                    // Title below the image.
+                    if ($this->settings['sectiontitleboxposition'] == 3) {
+                        $content .= html_writer::tag('div', $displaysectionname, $sectiontitleattribues);
+                    }
+
 
                     if ($editing) {
                         if ($section == 0) {
