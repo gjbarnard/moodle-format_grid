@@ -1037,8 +1037,7 @@ class toolbox {
             case 'image/png':
                 if (function_exists('imagepng')) {
                     $imagefnc = 'imagepng';
-                    $filters = PNG_NO_FILTER;
-                    $quality = 1;
+                    $quality = 9;
                 } else {
                     unlink($filepath);
                     print_error('formatnotsupported', 'format_grid', '', 'PNG, '.self::debugdata_decode($debugdata), 'generate_image');
@@ -1048,7 +1047,6 @@ class toolbox {
             case 'image/jpeg':
                 if (function_exists('imagejpeg')) {
                     $imagefnc = 'imagejpeg';
-                    $filters = null;
                     $quality = 90;
                 } else {
                     unlink($filepath);
@@ -1061,7 +1059,6 @@ class toolbox {
             case 'image/webp':
                 if (function_exists('imagewebp')) {
                     $imagefnc = 'imagewebp';
-                    $filters = null;
                     $quality = 90;
                 } else {
                     unlink($filepath);
@@ -1072,7 +1069,6 @@ class toolbox {
             case 'image/gif':
                 if (function_exists('imagegif')) {
                     $imagefnc = 'imagegif';
-                    $filters = null;
                     $quality = null;
                 } else {
                     unlink($filepath);
@@ -1171,7 +1167,13 @@ class toolbox {
         }
 
         ob_start();
-        if (!$imagefnc($finalimage, null, $quality, $filters)) {
+        if ($quality !== null) {
+            $success = $imagefnc($finalimage, null, $quality);
+        }
+        else {
+            $success = $imagefnc($finalimage, null);
+        }
+        if (!$success) {
             ob_end_clean();
             unlink($filepath);
             print_error('functionfailed', 'format_grid', '', $imagefnc.', '.self::debugdata_decode($debugdata), 'generate_image');
