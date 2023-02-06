@@ -123,3 +123,7 @@
 .format-grid .grid-completion .grid-percentage {
     font-size: 0.75em;
 }
+#page-course-view-grid.dir-rtl.format-grid .thegrid .grid-image img {
+  
+   transform: translate(50%,-50%);
+}
