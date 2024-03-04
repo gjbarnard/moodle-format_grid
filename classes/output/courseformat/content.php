@@ -379,11 +379,6 @@ class content extends content_base {
                 continue;
             }
 
-            $sectionformatoptions = $format->get_format_options($thissection);
-            if ($sectionformatoptions['sectionhideingrid'] == 2) { // Yes.
-                continue;
-            }
-
             $section = new stdClass();
             $section->id = $thissection->id;
             $section->num = $thissection->section;
