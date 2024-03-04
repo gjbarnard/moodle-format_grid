@@ -74,6 +74,10 @@ $string['sectionbreak_help'] = 'Break the grid at this section';
 $string['sectionbreakheading'] = 'Section break heading';
 $string['sectionbreakheading_help'] = 'Show this heading at the point this section breaks in the grid.  HTML can be used.';
 
+// Section hide in grid.
+$string['sectionhideingrid'] = 'Hide section in grid';
+$string['sectionhideingrid_help'] = 'Do not show the section in the grid.';
+
 // Grid justification.
 $string['gridjustification'] = 'Set the justification of the grid';
 $string['gridjustification_help'] = 'Set the justification to one of: Start, Centre, End, Space around, Space between or Space evenly';
