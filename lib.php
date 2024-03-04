@@ -808,6 +808,10 @@ class format_grid extends core_courseformat\base {
                     'default' => '',
                     'type' => PARAM_RAW,
                 ],
+                'sectionhideingrid' => [
+                    'default' => 1, // No.
+                    'type' => PARAM_INT,
+                ],
             ];
         }
         if ($foreditform && !isset($sectionformatoptions['sectionimage_filemanager']['label'])) {
@@ -847,6 +851,18 @@ class format_grid extends core_courseformat\base {
                     'help' => 'sectionbreakheading',
                     'help_component' => 'format_grid',
                     'element_type' => 'textarea',
+                ],
+                'sectionhideingrid' => [
+                    'label' => new lang_string('sectionhideingrid', 'format_grid'),
+                    'help' => 'sectionhideingrid',
+                    'help_component' => 'format_grid',
+                    'element_type' => 'select',
+                    'element_attributes' => [
+                        [
+                            1 => new lang_string('no'),
+                            2 => new lang_string('yes'),
+                        ],
+                    ],
                 ],
             ];
             $sectionformatoptions = array_merge_recursive($sectionformatoptions, $sectionformatoptionsedit);
