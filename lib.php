@@ -207,9 +207,9 @@ class format_grid extends core_courseformat\base {
      * @return bool;
      */
     public function is_section_visible(section_info $section): bool {
+        global $PAGE;
         if ($section->section > $this->get_last_section_number()) {
             // Stealth section.
-            global $PAGE;
             $context = context_course::instance($this->course->id);
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $modinfo = get_fast_modinfo($this->course);
@@ -218,6 +218,12 @@ class format_grid extends core_courseformat\base {
             }
             // Don't show.
             return false;
+        } else if (!$PAGE->user_is_editing()) {
+            $sectionformatoptions = $this->get_format_options($section);
+            if ($sectionformatoptions['sectionhideingrid'] == 2) { // Yes.
+                // Don't show.
+                return false;
+            }
         }
         return parent::is_section_visible($section);
     }
