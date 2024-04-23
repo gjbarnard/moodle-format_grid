@@ -454,9 +454,9 @@ class content extends content_base {
 
                 $data = new \stdClass();
                 $data->percentagevalue = $this->sectioncompletionpercentage[$section->section];
-                if ($data->percentagevalue < 11) {
+                if ($data->percentagevalue < 50) {
                     $data->percentagecolour = 'low';
-                } else if ($data->percentagevalue < 90) {
+                } else if ($data->percentagevalue < 80) {
                     $data->percentagecolour = 'middle';
                 } else {
                     $data->percentagecolour = 'high';
