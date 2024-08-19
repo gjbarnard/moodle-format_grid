@@ -127,6 +127,16 @@ $string['popup_help'] = 'Display the section in a popup instead of navigating to
 $string['defaultpopup'] = 'Use a popup';
 $string['defaultpopup_desc'] = 'Display the section in a popup instead of navigating to a single section page.';
 
+// Grid section title / badges.
+$string['sectiontitleingridbox'] = 'Section title in grid box';
+$string['sectiontitleingridbox_help'] = 'Show the section title in the grid box';
+$string['defaultsectiontitleingridbox'] = 'Section title in grid box';
+$string['defaultsectiontitleingridbox_desc'] = 'Show the section title in the grid box.';
+$string['sectionbadgeingridbox'] = 'Section badge in grid box';
+$string['sectionbadgeingridbox_help'] = 'Show the section badge in the grid box';
+$string['defaultsectionbadgeingridbox'] = 'Section badge in grid box';
+$string['defaultsectionbadgeingridbox_desc'] = 'Show the section badge in the grid box.';
+
 // Completion.
 $string['showcompletion'] = 'Show completion';
 $string['showcompletion_help'] = 'Show the completion of the section on the grid';
