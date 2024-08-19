@@ -5,6 +5,8 @@ Version 401.2.6 - In development
 --------------------------------
 1. Fix 'Orphaned sections problem when adding sections', a regression caused by
    'Use section anchors in links when editing - pt 2' - #223.
+2. Add site default and course 'sectiontitleingridbox' and 'sectionbadgeingridbox' settings, to show
+   the section title and section badges inside the grid box respectively.  Both 'Yes' by default.
 
 Version 401.2.5.5 - 28/09/2024
 ------------------------------
