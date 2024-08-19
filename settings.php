@@ -158,6 +158,28 @@ if ($ADMIN->fulltree) {
     ];
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    // Section title in grid box.
+    $name = 'format_grid/defaultsectiontitleingridbox';
+    $title = get_string('defaultsectiontitleingridbox', 'format_grid');
+    $description = get_string('defaultsectiontitleingridbox_desc', 'format_grid');
+    $default = 2;
+    $choices = [
+        1 => new lang_string('no'),
+        2 => new lang_string('yes'),
+    ];
+    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    // Section badge in grid box.
+    $name = 'format_grid/defaultsectionbadgeingridbox';
+    $title = get_string('defaultsectionbadgeingridbox', 'format_grid');
+    $description = get_string('defaultsectionbadgeingridbox_desc', 'format_grid');
+    $default = 2;
+    $choices = [
+        1 => new lang_string('no'),
+        2 => new lang_string('yes'),
+    ];
+    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     // Completion.
     $name = 'format_grid/defaultshowcompletion';
     $title = get_string('defaultshowcompletion', 'format_grid');

@@ -157,6 +157,12 @@ class content extends content_base {
             // Image resize is crop.
             $data->imageresizemethodcrop = ($coursesettings['imageresizemethod'] == 2);
 
+            // Section title in grid box.
+            $data->sectiontitleingridbox = ($coursesettings['sectiontitleingridbox'] == 2);
+
+            // Section badge in grid box.
+            $data->sectionbadgeingridbox = ($coursesettings['sectionbadgeingridbox'] == 2);
+
             // Popup.
             if (!$editing) {
                 $data->popup = false;
