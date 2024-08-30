@@ -75,8 +75,12 @@
     {{/sectionbreak}}
     <div id="section-{{number}}" class="grid-section card{{#iscurrent}} currentgridsection{{/iscurrent}}" title="{{sectionname}}">
         {{^popup}}
-        {{#hasbadge}}<div class="grid-section-inner">{{/hasbadge}}
-        {{^hasbadge}}<a class="grid-section-inner" href="{{sectionurl}}">{{/hasbadge}}
+        {{#hasbadge}}
+        <div class="grid-section-inner">
+        {{/hasbadge}}
+        {{^hasbadge}}
+        <a class="grid-section-inner" href="{{sectionurl}}">
+        {{/hasbadge}}
         {{/popup}}
         {{#popup}}
         <div class="grid-modal grid-section-inner d-flex flex-column h-100 justify-content-between" data-toggle="modal" data-target="#gridPopup" data-section="{{number}}" tabindex="0">
@@ -109,12 +113,19 @@
             </div>
             {{/imageerror}}
         {{^popup}}
-        {{#notavailable}}</div>{{/notavailable}}
-        {{^notavailable}}</a>{{/notavailable}}
+        {{#notavailable}}
+        </div>
+        {{/notavailable}}
+        {{^notavailable}}
+        </a>
+        {{/notavailable}}
         {{/popup}}
         {{#popup}}
         </div>
         {{/popup}}
+        {{#hasbadge}}
+        </div>
+        {{/hasbadge}}
     </div>
     {{/gridsections}}
 </div>
