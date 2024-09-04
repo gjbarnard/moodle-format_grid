@@ -171,6 +171,11 @@
     text-align: center;
 }
 
+.format-grid .card-header.text-truncate h3{
+    white-space: normal;
+    word-wrap: break-word;
+}
+
 /* Single section navigation */
 .course-content .single-section .section-navigation.gd-selection-selector-container {
     align-items: center;
