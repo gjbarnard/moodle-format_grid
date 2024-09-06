@@ -74,13 +74,13 @@
 }
 
 .format-grid .thegrid .grid-image {
-    height: 140px;
+    height: 100%!important;
     position: relative;
 }
 
 .format-grid .thegrid .grid-generatedimage {
     background-size: contain;
-    height: 140px;
+    height:  100%!important;
 }
 
 /*rtl:begin:ignore*/
@@ -171,11 +171,17 @@
     text-align: center;
 }
 
-.format-grid .card-header.text-truncate h3{
+.card-header.text-truncate h3 {
     white-space: normal;
     word-wrap: break-word;
     font-size: 1.2rem;
     margin-bottom: 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits text to two lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3.6em; /* This sets the maximum height for two lines, adjust depending on your font-size */
 }
 .format-grid .card-header.text-truncate {
     padding-left: 15px;
@@ -217,10 +223,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%; /* Ensures full width */
+    height: 140px; /* Set a consistent height */
+    max-width: 100%;
 }
 
 .grid-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%; /* Ensure the image takes up full width of the container */
+    height: 100%; /* Ensure the image takes up full height of the container */
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+    object-position: center; /* Center the image within the container */
 }
