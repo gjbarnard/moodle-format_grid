@@ -75,8 +75,8 @@
     {{/sectionbreak}}
     <div id="section-{{number}}" class="grid-section card{{#iscurrent}} currentgridsection{{/iscurrent}}" title="{{sectionname}}">
         {{^popup}}
-        {{#hasbadge}}<div class="grid-section-inner">{{/hasbadge}}
-        {{^hasbadge}}<a class="grid-section-inner" href="{{sectionurl}}">{{/hasbadge}}
+        {{#hasbadge}}<div class="grid-section-inner d-flex flex-column h-100">{{/hasbadge}}
+        {{^hasbadge}}<a class="grid-section-inner d-flex flex-column h-100" href="{{sectionurl}}">{{/hasbadge}}
         {{/popup}}
         {{#popup}}
         <div class="grid-modal grid-section-inner d-flex flex-column h-100 justify-content-between" data-toggle="modal" data-target="#gridPopup" data-section="{{number}}" tabindex="0">
@@ -91,23 +91,22 @@
                 </div>
                 {{/hasbadge}}
             </div>
-            {{#imageuri}}
-            <div class="grid-image card-img-bottom text-center">
-                <img src="{{imageuri}}" alt="{{imagealttext}}" loading="lazy">
+            <div class="grid-image-container flex-grow-1 d-flex align-items-center justify-content-center">
+                {{#imageuri}}
+                <img src="{{imageuri}}" alt="{{imagealttext}}" loading="lazy" class="grid-image">
                 {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}
+                {{/imageuri}}
+                {{#generatedimageuri}}
+                <div class="grid-generatedimage" style="background-image: url('{{generatedimageuri}}');">
+                </div>
+                {{/generatedimageuri}}
+                {{#imageerror}}
+                <div class="grid-image-error card-img-bottom text-center">
+                    <p><small>{{imageerror}}</small></p>
+                    {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}
+                </div>
+                {{/imageerror}}
             </div>
-            {{/imageuri}}
-            {{#generatedimageuri}}
-            <div class="grid-generatedimage card-img-bottom text-center" style="background-image: url('{{generatedimageuri}}');">
-                {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}
-            </div>
-            {{/generatedimageuri}}
-            {{#imageerror}}
-            <div class="grid-image-error card-img-bottom text-center">
-                <p><small>{{imageerror}}</small></p>
-                {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}
-            </div>
-            {{/imageerror}}
         {{^popup}}
         {{#hasbadge}}</div>{{/hasbadge}}
         {{^hasbadge}}</a>{{/hasbadge}}
