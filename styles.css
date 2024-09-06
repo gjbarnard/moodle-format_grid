@@ -211,8 +211,8 @@
     justify-content: flex-end;
 }
 .grid-section .card-header {
-    min-height: 50px;
-    max-height: 80px;
+    min-height: 87px;
+    max-height: 87px;
     overflow: hidden;
     flex-direction: column;
     display: flex;
@@ -223,14 +223,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Ensures full width */
-    height: 140px; /* Set a consistent height */
+    width: 100%; 
+    height: 140px; 
     max-width: 100%;
 }
 
 .grid-image {
-    width: 100%; /* Ensure the image takes up full width of the container */
-    height: 100%; /* Ensure the image takes up full height of the container */
-    object-fit: cover; /* Ensures the image covers the container without distortion */
-    object-position: center; /* Center the image within the container */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
