@@ -128,6 +128,10 @@
     width: 42px;
 }
 
+.format-grid .card-header .section-title{
+   font-size: 1.1rem;
+}
+
 .format-grid .grid-completion.grid-completion-colour-low {
     background-color: magenta;
     color: white;
