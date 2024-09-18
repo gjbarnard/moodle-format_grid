@@ -133,8 +133,8 @@
 }
 
 .format-grid .grid-completion.grid-completion-colour-low {
-    background-color: #ffca36;
-    color: white;
+    background-color: white;
+    color: #1a1a1a;
 }
 
 .format-grid .grid-completion.grid-completion-colour-middle {
@@ -143,7 +143,7 @@
 }
 
 .format-grid .grid-completion.grid-completion-colour-high{
-    background-color: green;
+    background-color: #52c152;
     color: white;
 }
 
