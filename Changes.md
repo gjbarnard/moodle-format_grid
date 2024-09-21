@@ -1,8 +1,8 @@
 History
 =============
 
-Version 402.2.4 - In development
---------------------------------
+Version 402.2.4 - 21/09/24
+--------------------------
 1. Fix updating of course when adding or removing sections.  Note: Known issue of the section not looking as it should.
 2. Fix 'Unable to update defaultimageresizemethod setting' - #211.
 3. Use section anchors in links when editing.
