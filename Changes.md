@@ -1,8 +1,11 @@
 History
 =============
 
-Version 404.1.1 - 21/09/24
---------------------------
+Version 404.1.2 - In deveopment
+-------------------------------
+
+Version 404.1.1 - 21/09/2024
+----------------------------
 1. Use section anchors in links when editing.
 2. Add badges to grid - #215.
 3. Adjust section titles in grid and move 'title' attribute to cover whole grid box.
