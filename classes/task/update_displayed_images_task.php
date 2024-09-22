@@ -41,15 +41,19 @@ class update_displayed_images_task {
     /**
      * Queue the tasks for each grid format course.
      */
-    public static function update_displayed_images() {
+    public static function update_displayed_images_imageresizemethod() {
         global $DB;
 
         $gridcourses = $DB->get_records('course', ['format' => 'grid'], '', 'id');
 
         foreach ($gridcourses as $gridcourse) {
-            $task = new update_displayed_images_adhoc();
-            $task->set_custom_data($gridcourse->id);
-            \core\task\manager::queue_adhoc_task($task);
+            $format = course_get_format($gridcourse->id);
+            $imageresizemethod = $format->get_format_options()['imageresizemethod'];
+            if ($imageresizemethod != 0) {
+                $task = new update_displayed_images_adhoc();
+                $task->set_custom_data($gridcourse->id);
+                \core\task\manager::queue_adhoc_task($task);
+            }
         }
     }
 }
