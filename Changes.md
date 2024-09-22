@@ -5,6 +5,7 @@ Version 402.2.5 -
 ----------------------------
 1. Fix section zero showing after section on single section page.  This has caused the removal of 'sectionzeroingrid' setting.
    If you want this functionality, please upgrade to the M4.4+ version.
+2. Update to 'Fix not using course image resize method' update task.
 
 Version 402.2.4 - 21/09/2024
 ----------------------------
