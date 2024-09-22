@@ -130,6 +130,12 @@
 
 .format-grid .card-header .section-title{
    font-size: 1.1rem;
+   display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
 }
 
 .format-grid .grid-completion.grid-completion-colour-low {
@@ -138,12 +144,12 @@
 }
 
 .format-grid .grid-completion.grid-completion-colour-middle {
-    background-color: yellow;
-    color: black;
+    background-color: white;
+    color: #1a1a1a;
 }
 
 .format-grid .grid-completion.grid-completion-colour-high{
-    background-color: #52c152;
+    background-color: white;
     color: white;
 }
 
