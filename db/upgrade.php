@@ -195,7 +195,7 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
         $codebase = get_config('format_grid', 'codebase');
         if ((empty($codebase)) || ((!empty($codebase)) && ($codebase < 2024090700))) {
             // No!
-            \format_grid\task\update_displayed_images_task::update_displayed_images();
+            \format_grid\task\update_displayed_images_task::update_displayed_images_imageresizemethod();
             set_config('codebase', 2024090700, 'format_grid');
         }
 
