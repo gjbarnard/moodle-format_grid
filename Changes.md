@@ -1,7 +1,7 @@
 History
 =============
 
-Version 402.2.5 - 
+Version 402.2.5 - 23/09/2024
 ----------------------------
 1. Fix section zero showing after section on single section page.  This has caused the removal of 'sectionzeroingrid' setting.
    If you want this functionality, please upgrade to the M4.4+ version.
