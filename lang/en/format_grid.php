@@ -127,12 +127,6 @@ $string['popup_help'] = 'Display the section in a popup instead of navigating to
 $string['defaultpopup'] = 'Use a popup';
 $string['defaultpopup_desc'] = 'Display the section in a popup instead of navigating to a single section page.';
 
-// Section zero.
-$string['sectionzeroingrid'] = 'Section zero in grid';
-$string['sectionzeroingrid_help'] = 'Place section zero in the grid';
-$string['defaultsectionzeroingrid'] = 'Section zero in grid';
-$string['defaultsectionzeroingrid_desc'] = 'Place section zero in the grid.';
-
 // Completion.
 $string['showcompletion'] = 'Show completion';
 $string['showcompletion_help'] = 'Show the completion of the section on the grid';

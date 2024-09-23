@@ -269,9 +269,6 @@ class format_grid extends core_courseformat\base {
             if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $url->param('section', $sectionno);
             } else {
-                if (empty($CFG->linkcoursesections) && !empty($options['navigation'])) {
-                    return null;
-                }
                 $url->set_anchor('section-' . $sectionno);
             }
         }
@@ -422,10 +419,6 @@ class format_grid extends core_courseformat\base {
                     'default' => 0,
                     'type' => PARAM_INT,
                 ],
-                'sectionzeroingrid' => [
-                    'default' => 0,
-                    'type' => PARAM_INT,
-                ],
                 'showcompletion' => [
                     'default' => 0,
                     'type' => PARAM_INT,
@@ -538,22 +531,6 @@ class format_grid extends core_courseformat\base {
                 'help_component' => 'format_grid',
                 'element_type' => 'select',
                 'element_attributes' => [$imageresizemethodvalues],
-            ];
-
-            $sectionzeroingridvalues = $this->generate_default_entry(
-                'sectionzeroingrid',
-                0,
-                [
-                    1 => new lang_string('no'),
-                    2 => new lang_string('yes'),
-                ],
-            );
-            $courseformatoptionsedit['sectionzeroingrid'] = [
-                'label' => new lang_string('sectionzeroingrid', 'format_grid'),
-                'help' => 'sectionzeroingrid',
-                'help_component' => 'format_grid',
-                'element_type' => 'select',
-                'element_attributes' => [$sectionzeroingridvalues],
             ];
 
             $showcompletionvalues = $this->generate_default_entry(
