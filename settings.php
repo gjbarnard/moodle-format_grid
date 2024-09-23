@@ -133,17 +133,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('format_grid::update_displayed_images_callback');
     $page->add($setting);
 
-    // Section zero in grid.
-    $name = 'format_grid/defaultsectionzeroingrid';
-    $title = get_string('defaultsectionzeroingrid', 'format_grid');
-    $description = get_string('defaultsectionzeroingrid_desc', 'format_grid');
-    $default = 1;
-    $choices = [
-        1 => new lang_string('no'),
-        2 => new lang_string('yes'),
-    ];
-    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
-
     // Completion.
     $name = 'format_grid/defaultshowcompletion';
     $title = get_string('defaultshowcompletion', 'format_grid');
