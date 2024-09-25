@@ -181,5 +181,47 @@ if ($ADMIN->fulltree) {
         4 => new lang_string('right', 'format_grid'),
     ];
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+    
+    $name = 'format_grid/completion_colour_low_bg';
+    $title = get_string('completioncolourlowbg', 'format_grid');
+    $description = get_string('completioncolourlowbg_desc', 'format_grid');
+    $default = '#FFFFFF';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'format_grid/completion_colour_low_text';
+    $title = get_string('completioncolourlowtext', 'format_grid');
+    $description = get_string('completioncolourlowtext_desc', 'format_grid');
+    $default = '#1a1a1a';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'format_grid/completion_colour_middle_bg';
+    $title = get_string('completioncolourmiddlebg', 'format_grid');
+    $description = get_string('completioncolourmiddlebg_desc', 'format_grid');
+    $default = '#FFFFFF';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'format_grid/completion_colour_middle_text';
+    $title = get_string('completioncolourmiddletext', 'format_grid');
+    $description = get_string('completioncolourmiddletext_desc', 'format_grid');
+    $default = '#1a1a1a';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'format_grid/completion_colour_high_bg';
+    $title = get_string('completioncolourhighbg', 'format_grid');
+    $description = get_string('completioncolourhighbg_desc', 'format_grid');
+    $default = '#FFFFFF';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'format_grid/completion_colour_high_text';
+    $title = get_string('completioncolourhightext', 'format_grid');
+    $description = get_string('completioncolourhightext_desc', 'format_grid');
+    $default = '#1a1a1a';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $page->add($setting);
 }
 $ADMIN->add('format_grid', $page);

@@ -53,6 +53,48 @@ class renderer extends section_renderer {
     }
 
     /**
+     * Outputs the custom CSS for the grid format.
+     *
+     * @param stdClass $course The course object
+     * @return string The HTML for the custom CSS
+     */
+    public function print_custom_css($course) {
+    
+        $colourlowbg = get_config('format_grid', 'completion_colour_low_bg');
+        $colourlowtext = get_config('format_grid', 'completion_colour_low_text');
+        $colourmiddlebg = get_config('format_grid', 'completion_colour_middle_bg');
+        $colourmiddletext = get_config('format_grid', 'completion_colour_middle_text');
+        $colourhighbg = get_config('format_grid', 'completion_colour_high_bg');
+        $colourhightext = get_config('format_grid', 'completion_colour_high_text');
+
+        $formatoptions['completion_colour_low_bg'] = $colourlowbg;
+        $formatoptions['completion_colour_low_text'] = $colourlowtext;
+        $formatoptions['completion_colour_middle_bg'] = $colourmiddlebg;
+        $formatoptions['completion_colour_middle_text'] = $colourmiddletext;
+        $formatoptions['completion_colour_high_bg'] = $colourhighbg;
+        $formatoptions['completion_colour_high_text'] = $colourhightext;
+
+        $css = "
+            .format-grid .grid-completion.grid-completion-colour-low {
+                background-color: {$colourlowbg};
+                color: {$colourlowtext};
+            }
+            .format-grid .grid-completion.grid-completion-colour-middle {
+                background-color: {$colourmiddlebg};
+                color: {$colourmiddletext};
+            }
+            .format-grid .grid-completion.grid-completion-colour-high {
+                background-color: {$colourhighbg};
+                color: {$colourhightext};
+            }
+        ";
+    
+        if (!empty($formatoptions['customcss'])) {
+            return \html_writer::tag('style', $css);
+        }
+        return '';
+    }
+    /**
      * Generate the section title, wraps it in a link to the section page if page is to be displayed on a separate page.
      *
      * @param section_info|stdClass $section The course_section entry from DB

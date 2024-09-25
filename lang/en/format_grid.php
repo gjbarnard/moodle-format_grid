@@ -139,7 +139,18 @@ $string['showcompletion'] = 'Show completion';
 $string['showcompletion_help'] = 'Show the completion of the section on the grid';
 $string['defaultshowcompletion'] = 'Show completion';
 $string['defaultshowcompletion_desc'] = 'Show the completion of the section on the grid.';
-
+$string['completioncolourlowbg'] = 'Low completion background color';
+$string['completioncolourlowbg_desc'] = 'Background color for low completion status';
+$string['completioncolourlowtext'] = 'Low completion text color';
+$string['completioncolourlowtext_desc'] = 'Text color for low completion status';
+$string['completioncolourmiddlebg'] = 'Middle completion background color';
+$string['completioncolourmiddlebg_desc'] = 'Background color for middle completion status';
+$string['completioncolourmiddletext'] = 'Middle completion text color';
+$string['completioncolourmiddletext_desc'] = 'Text color for middle completion status';
+$string['completioncolourhighbg'] = 'High completion background color';
+$string['completioncolourhighbg_desc'] = 'Background color for high completion status';
+$string['completioncolourhightext'] = 'High completion text color';
+$string['completioncolourhightext_desc'] = 'Text color for high completion status';
 // Other.
 $string['information'] = 'Information';
 $string['informationsettings'] = 'Information settings';

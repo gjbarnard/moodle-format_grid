@@ -138,20 +138,6 @@
     white-space: normal;
 }
 
-.format-grid .grid-completion.grid-completion-colour-low {
-    background-color: white;
-    color: #1a1a1a;
-}
-
-.format-grid .grid-completion.grid-completion-colour-middle {
-    background-color: white;
-    color: #1a1a1a;
-}
-
-.format-grid .grid-completion.grid-completion-colour-high{
-    background-color: white;
-    color: #1a1a1a;
-}
 
 .format-grid .grid-completion.grid-completion-percentagequarter-1 {
     border-right-color: lightgreen;

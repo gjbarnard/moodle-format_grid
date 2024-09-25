@@ -70,4 +70,5 @@ if (!empty($displaysection)) {
 }
 $outputclass = $format->get_output_classname('content');
 $widget = new $outputclass($format);
+echo $renderer->print_custom_css($course);
 echo $renderer->render($widget);
