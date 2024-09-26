@@ -59,40 +59,36 @@ class renderer extends section_renderer {
      * @return string The HTML for the custom CSS
      */
     public function print_custom_css($course) {
-    
-        $colourlowbg = get_config('format_grid', 'completion_colour_low_bg');
-        $colourlowtext = get_config('format_grid', 'completion_colour_low_text');
-        $colourmiddlebg = get_config('format_grid', 'completion_colour_middle_bg');
-        $colourmiddletext = get_config('format_grid', 'completion_colour_middle_text');
-        $colourhighbg = get_config('format_grid', 'completion_colour_high_bg');
-        $colourhightext = get_config('format_grid', 'completion_colour_high_text');
+        $defaults = [
+            'completion_colour_low_bg' => '#FFFFFF',
+            'completion_colour_low_text' => '#1a1a1a',
+            'completion_colour_middle_bg' => '#FFFFFF',
+            'completion_colour_middle_text' => '#1a1a1a',
+            'completion_colour_high_bg' => '#FFFFFF',
+            'completion_colour_high_text' => '#1a1a1a'
+        ];
 
-        $formatoptions['completion_colour_low_bg'] = $colourlowbg;
-        $formatoptions['completion_colour_low_text'] = $colourlowtext;
-        $formatoptions['completion_colour_middle_bg'] = $colourmiddlebg;
-        $formatoptions['completion_colour_middle_text'] = $colourmiddletext;
-        $formatoptions['completion_colour_high_bg'] = $colourhighbg;
-        $formatoptions['completion_colour_high_text'] = $colourhightext;
+        $formatoptions = [];
+        foreach ($defaults as $key => $default) {
+            $value = get_config('format_grid', $key);
+            $formatoptions[$key] = $value !== false ? $value : $default;
+        }
 
         $css = "
             .format-grid .grid-completion.grid-completion-colour-low {
-                background-color: {$colourlowbg};
-                color: {$colourlowtext};
+                background-color: {$formatoptions['completion_colour_low_bg']};
+                color: {$formatoptions['completion_colour_low_text']};
             }
             .format-grid .grid-completion.grid-completion-colour-middle {
-                background-color: {$colourmiddlebg};
-                color: {$colourmiddletext};
+                background-color: {$formatoptions['completion_colour_middle_bg']};
+                color: {$formatoptions['completion_colour_middle_text']};
             }
             .format-grid .grid-completion.grid-completion-colour-high {
-                background-color: {$colourhighbg};
-                color: {$colourhightext};
+                background-color: {$formatoptions['completion_colour_high_bg']};
+                color: {$formatoptions['completion_colour_high_text']};
             }
         ";
-    
-        if (!empty($formatoptions['customcss'])) {
             return \html_writer::tag('style', $css);
-        }
-        return '';
     }
     /**
      * Generate the section title, wraps it in a link to the section page if page is to be displayed on a separate page.
