@@ -47,7 +47,8 @@ class update_displayed_images_task {
         $gridcourses = $DB->get_records('course', ['format' => 'grid'], '', 'id');
 
         foreach ($gridcourses as $gridcourse) {
-            $format = course_get_format($gridcourse->id);
+            // Instead of course_get_format() for CLI usage.
+            $format = \core_courseformat\base::instance($gridcourse->id);
             $imageresizemethod = $format->get_format_options()['imageresizemethod'];
             if ($imageresizemethod != 0) {
                 $task = new update_displayed_images_adhoc();

@@ -698,7 +698,8 @@ class toolbox {
             foreach ($coursesectionimages as $coursesectionimage) {
                 if ($courseid != $coursesectionimage->courseid) {
                     $courseid = $coursesectionimage->courseid;
-                    $format = course_get_format($courseid);
+                    // Instead of course_get_format() for CLI usage.
+                    $format = \core_courseformat\base::instance($courseid);
                     if (get_class($format) != 'format_grid') {
                         // Not currently in the Grid format, but was.
                         $format = null;
