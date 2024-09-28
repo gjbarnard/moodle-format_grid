@@ -1,6 +1,9 @@
 History
 =============
 
+Version 403.1.4.5 - 29/09/2024
+------------------------------
+
 Version 403.1.4 - 23/09/2024
 ----------------------------
 1. Fix section zero showing after section on single section page.  This has caused the removal of 'sectionzeroingrid' setting.
