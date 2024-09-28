@@ -1,6 +1,9 @@
 History
 =============
 
+Version 404.1.2.5 - 28/09/2024
+------------------------------
+
 Version 404.1.2 - 23/09/2024
 ----------------------------
 1. Update to 'Fix not using course image resize method' update task.
