@@ -3,6 +3,8 @@ History
 
 Version 402.2.6 - In development
 --------------------------------
+1. Fix 'Orphaned sections problem when adding sections', a regression caused by
+   'Use section anchors in links when editing - pt 2' - #223.
 
 Version 402.2.5.5 - 28/09/2024
 ------------------------------
