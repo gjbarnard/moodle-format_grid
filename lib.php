@@ -962,10 +962,11 @@ class format_grid extends core_courseformat\base {
      * @param bool $add Add a section or delete if false.
      */
     protected function change_gnumsections($add) {
+        $currentsettings = $this->get_settings();
         if ($add) {
-            $newgnumsetions = $this->settings['gnumsections'] + 1;
+            $newgnumsetions = $currentsettings['gnumsections'] + 1;
         } else {
-            $newgnumsetions = $this->settings['gnumsections'] - 1;
+            $newgnumsetions = $currentsettings['gnumsections'] - 1;
         }
         $data = ['gnumsections' => $newgnumsetions];
         $this->update_format_options($data);
