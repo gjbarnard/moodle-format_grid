@@ -1,8 +1,8 @@
 History
 =============
 
-Version 401.2.6 - In development
---------------------------------
+Version 401.2.6 - 03/10/2024
+----------------------------
 1. Fix 'Orphaned sections problem when adding sections', a regression caused by
    'Use section anchors in links when editing - pt 2' - #223.
 2. Add site default and course 'sectiontitleingridbox' and 'sectionbadgeingridbox' settings, to show
