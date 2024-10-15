@@ -104,12 +104,13 @@ class toolbox {
      */
     public function get_displayed_image_uri($coursesectionimage, $coursecontextid, $sectionid, $displayediswebp) {
         $filename = $coursesectionimage->image;
+        $filetype = strtolower(pathinfo($filename ?? '', PATHINFO_EXTENSION));
 
         if ($displayediswebp) {
-            $filetype = strtolower(pathinfo($filename ?? '', PATHINFO_EXTENSION));
             if (!empty($filetype)) {
                 if ($filetype != 'webp') {
                     $filename .= '.webp';
+                    $filetype = 'webp';
                 }
             } else {
                 $filename .= '.webp';
@@ -118,7 +119,7 @@ class toolbox {
         $image = \moodle_url::make_pluginfile_url(
             $coursecontextid,
             'format_grid',
-            'displayedsectionimage',
+            $filetype === 'gif' ? 'sectionimage' : 'displayedsectionimage',
             $sectionid,
             '/' . $coursesectionimage->displayedimagestate . '/',
             $filename
