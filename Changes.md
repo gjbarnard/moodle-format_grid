@@ -1,6 +1,12 @@
 History
 =============
 
+Version 405.0.1 - 24/10/2024
+----------------------------
+1. Release candidate version for Moodle 4.5.
+2. Fix 'Generated images not showing when editing'.
+3. Impact of MDL-81920 and MDL-81960.
+
 Version 404.1.3 - 03/10/2024
 ----------------------------
 1. Fix 'Orphaned sections problem when adding sections', a regression caused by

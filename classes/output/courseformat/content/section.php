@@ -29,6 +29,7 @@ namespace format_grid\output\courseformat\content;
 
 use core_courseformat\base as course_format;
 use core_courseformat\output\local\content\section as section_base;
+use core\output\renderer_base;
 use stdClass;
 
 /**
@@ -51,7 +52,7 @@ class section extends section_base {
      * @param renderer_base $output typically, the renderer that's calling this function.
      * @return array data context for a mustache template.
      */
-    public function export_for_template(\renderer_base $output): stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
         $format = $this->format;
 
         $data = parent::export_for_template($output);
@@ -74,7 +75,7 @@ class section extends section_base {
      * @param renderer_base $output typically, the renderer that's calling this function
      * @return bool if the cm has name data
      */
-    protected function add_format_data(stdClass &$data, array $haspartials, \renderer_base $output): bool {
+    protected function add_format_data(stdClass &$data, array $haspartials, renderer_base $output): bool {
         parent::add_format_data($data, $haspartials, $output);
         $data->collapsemenu = false;
 

@@ -26,13 +26,17 @@
 
 namespace format_grid;
 
+use admin_setting;
+use core_plugin_manager;
+use core\output\html_writer;
+
 /**
  * Setting that displays information.  Based on admin_setting_description in adminlib.php.
  *
  * @copyright  &copy; 2022-onwards G J Barnard.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-class admin_setting_information extends \admin_setting {
+class admin_setting_information extends admin_setting {
     /** @var int The branch this is for. */
     protected $mbranch;
 
@@ -93,7 +97,7 @@ class admin_setting_information extends \admin_setting {
         if (!empty($formats['grid'])) {
             $plugininfo = $formats['grid'];
         } else {
-            $plugininfo = \core_plugin_manager::instance()->get_plugin_info('format_grid');
+            $plugininfo = core_plugin_manager::instance()->get_plugin_info('format_grid');
             $plugininfo->version = $plugininfo->versiondisk;
         }
 
@@ -102,8 +106,8 @@ class admin_setting_information extends \admin_setting {
         $attributes['aria-hidden'] = 'true';
         $attributes['class'] = 'fa fa-heart';
         $attributes['title'] = get_string('love', 'format_grid');
-        $content = \html_writer::tag('span', $attributes['title'], ['class' => 'sr-only']);
-        $content = \html_writer::tag('span', $content, $attributes);
+        $content = html_writer::tag('span', $attributes['title'], ['class' => 'sr-only']);
+        $content = html_writer::tag('span', $content, $attributes);
         $context['versioninfo'] = get_string(
             'versioninfo',
             'format_grid',

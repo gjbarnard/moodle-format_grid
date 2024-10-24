@@ -31,10 +31,10 @@ defined('MOODLE_INTERNAL') || die();
 $observers = [
     [
         'eventname' => '\core\event\course_content_deleted',
-        'callback' => 'format_grid_observer::course_content_deleted',
+        'callback' => '\format_grid\observer::course_content_deleted',
     ],
     [
         'eventname' => '\core\event\course_restored',
-        'callback' => 'format_grid_observer::course_restored',
+        'callback' => '\format_grid\observer::course_restored',
     ],
 ];

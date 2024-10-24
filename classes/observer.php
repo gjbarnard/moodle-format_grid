@@ -25,10 +25,12 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace format_grid;
+
 /**
  * Event observers supported by this format.
  */
-class format_grid_observer {
+class observer {
     /**
      * Observer for the event course_content_deleted.
      *
@@ -67,6 +69,6 @@ class format_grid_observer {
      */
     protected static function delete_images($courseid) {
         // Delete any images associated with the course.
-        \format_grid\toolbox::delete_images($courseid);
+        toolbox::delete_images($courseid);
     }
 }

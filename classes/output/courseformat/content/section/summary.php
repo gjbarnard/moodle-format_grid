@@ -31,6 +31,9 @@ namespace format_grid\output\courseformat\content\section;
 
 use core_courseformat\output\local\content\section\summary as summary_base;
 use core_courseformat\base as course_format;
+use context_course;
+use core\output\renderer_base;
+use format_grid\toolbox;
 use section_info;
 use stdClass;
 
@@ -62,7 +65,7 @@ class summary extends summary_base {
      * @param renderer_base $output typically, the renderer that's calling this function.
      * @return array data context for a mustache template.
      */
-    public function export_for_template(\renderer_base $output): stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
 
         $section = $this->thesection;
 
@@ -113,8 +116,8 @@ class summary extends summary_base {
                 );
                 if (!empty($coursesectionimage)) {
                     $fs = get_file_storage();
-                    $coursecontext = \context_course::instance($courseid);
-                    $toolbox = \format_grid\toolbox::get_instance();
+                    $coursecontext = context_course::instance($courseid);
+                    $toolbox = toolbox::get_instance();
                     $replacement = $toolbox->check_displayed_image(
                         $coursesectionimage,
                         $courseid,

@@ -27,6 +27,9 @@
  */
 namespace format_grid\task;
 
+use core\output\progress_trace\text_progress_trace;
+use format_grid\toolbox;
+
 /**
  * Grid update displayed image adhoc task class.
  *
@@ -42,7 +45,7 @@ class update_displayed_images_adhoc extends \core\task\adhoc_task {
      *  Run the task.
      */
     public function execute() {
-        $trace = new \text_progress_trace();
+        $trace = new text_progress_trace();
         $courseid = $this->get_custom_data();
         self::do_update_displayed_images_task($trace, $courseid);
     }
@@ -55,6 +58,6 @@ class update_displayed_images_adhoc extends \core\task\adhoc_task {
      */
     protected static function do_update_displayed_images_task(\progress_trace $trace, $courseid) {
         $trace->output('Executing Grid update displayed images adhoc task on course id ' . $courseid . '.');
-        \format_grid\toolbox::update_displayed_images($courseid);
+        toolbox::update_displayed_images($courseid);
     }
 }

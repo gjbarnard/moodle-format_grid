@@ -26,6 +26,13 @@
 
 namespace format_grid;
 
+use context_course;
+use core\lock\lock_config;
+use core\url;
+use Exception;
+use moodle_exception;
+use stdClass;
+
 /**
  * The format's toolbox.
  *
@@ -115,7 +122,7 @@ class toolbox {
                 $filename .= '.webp';
             }
         }
-        $image = \moodle_url::make_pluginfile_url(
+        $image = url::make_pluginfile_url(
             $coursecontextid,
             'format_grid',
             'displayedsectionimage',
@@ -143,7 +150,7 @@ class toolbox {
         if (empty($sectionimage->displayedimagestate)) {
             $lock = true;
             if (!defined('BEHAT_SITE_RUNNING')) {
-                $lockfactory = \core\lock\lock_config::get_lock_factory('format_grid');
+                $lockfactory = lock_config::get_lock_factory('format_grid');
                 $lock = $lockfactory->get_lock('sectionid' . $sectionid, 5);
             }
             if ($lock) {
@@ -152,7 +159,7 @@ class toolbox {
                     if (!$file->is_directory()) {
                         try {
                             $newsectionimage = $this->setup_displayed_image($sectionimage, $file, $courseid, $sectionid, $format);
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             $lock->release();
                             throw $e;
                         }
@@ -162,7 +169,7 @@ class toolbox {
                     $lock->release();
                 }
             } else {
-                throw new \moodle_exception(
+                throw new moodle_exception(
                     'imagemanagement',
                     'format_grid',
                     '',
@@ -239,7 +246,7 @@ class toolbox {
             );
             if (!empty($data)) {
                 // Updated image.
-                $coursecontext = \context_course::instance($courseid);
+                $coursecontext = context_course::instance($courseid);
 
                 // Remove existing displayed image.
                 $existingfiles = $fs->get_area_files($coursecontext->id, 'format_grid', 'displayedsectionimage', $sectionid);
@@ -284,7 +291,7 @@ class toolbox {
                 ['sectionid' => $sectionid]
             );
             if ($sectionimage->displayedimagestate == -1) {
-                throw new \moodle_exception(
+                throw new moodle_exception(
                     'imagemanagement',
                     'format_grid',
                     '',
@@ -390,7 +397,7 @@ class toolbox {
 
         if (empty($imageinfo)) {
             unlink($filepath);
-            throw new \moodle_exception(
+            throw new moodle_exception(
                 'imagemanagement',
                 'format_grid',
                 '',
@@ -407,7 +414,7 @@ class toolbox {
 
         if (empty($originalheight)) {
             unlink($filepath);
-            throw new \moodle_exception(
+            throw new moodle_exception(
                 'imagemanagement',
                 'format_grid',
                 '',
@@ -420,7 +427,7 @@ class toolbox {
         }
         if (empty($originalwidth)) {
             unlink($filepath);
-            throw new \moodle_exception(
+            throw new moodle_exception(
                 'imagemanagement',
                 'format_grid',
                 '',
@@ -445,7 +452,7 @@ class toolbox {
                     $imageargs[3] = PNG_NO_FILTER; // Filter.
                 } else {
                     unlink($filepath);
-                    throw new \moodle_exception(
+                    throw new moodle_exception(
                         'imagemanagement',
                         'format_grid',
                         '',
@@ -463,7 +470,7 @@ class toolbox {
                     $imageargs[2] = 90; // Quality.
                 } else {
                     unlink($filepath);
-                    throw new \moodle_exception(
+                    throw new moodle_exception(
                         'imagemanagement',
                         'format_grid',
                         '',
@@ -483,7 +490,7 @@ class toolbox {
                     $imageargs[2] = 90; // Quality.
                 } else {
                     unlink($filepath);
-                    throw new \moodle_exception(
+                    throw new moodle_exception(
                         'imagemanagement',
                         'format_grid',
                         '',
@@ -500,7 +507,7 @@ class toolbox {
                     $imagefnc = 'imagegif';
                 } else {
                     unlink($filepath);
-                    throw new \moodle_exception(
+                    throw new moodle_exception(
                         'imagemanagement',
                         'format_grid',
                         '',
@@ -514,7 +521,7 @@ class toolbox {
                 break;
             default:
                 unlink($filepath);
-                throw new \moodle_exception(
+                throw new moodle_exception(
                     'imagemanagement',
                     'format_grid',
                     '',
@@ -616,7 +623,7 @@ class toolbox {
         if (!call_user_func_array($imagefnc, $imageargs)) {
             ob_end_clean();
             unlink($filepath);
-            throw new \moodle_exception(
+            throw new moodle_exception(
                 'imagemanagement',
                 'format_grid',
                 '',
@@ -691,7 +698,7 @@ class toolbox {
             $coursecontext = null;
 
             if (!defined('BEHAT_SITE_RUNNING')) {
-                $lockfactory = \core\lock\lock_config::get_lock_factory('format_grid');
+                $lockfactory = lock_config::get_lock_factory('format_grid');
             }
             $toolbox = self::get_instance();
             $courseid = -1;
@@ -705,7 +712,7 @@ class toolbox {
                         $format = null;
                         continue;
                     }
-                    $coursecontext = \context_course::instance($courseid);
+                    $coursecontext = context_course::instance($courseid);
                 }
                 if (!empty($format)) {
                     if (!defined('BEHAT_SITE_RUNNING')) {
@@ -726,7 +733,7 @@ class toolbox {
                                         );
                                 }
                             }
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             if (!defined('BEHAT_SITE_RUNNING')) {
                                 $lock->release();
                             }
@@ -736,7 +743,7 @@ class toolbox {
                             $lock->release();
                         }
                     } else {
-                        throw new \moodle_exception(
+                        throw new moodle_exception(
                             'imagemanagement',
                             'format_grid',
                             '',
@@ -757,7 +764,7 @@ class toolbox {
         global $DB;
 
         $fs = get_file_storage();
-        $coursecontext = \context_course::instance($courseid);
+        $coursecontext = context_course::instance($courseid);
         // Images.
         $images = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage');
         foreach ($images as $image) {
@@ -789,16 +796,16 @@ class toolbox {
             $lockfactory = null;
             $lock = true;
             if (!defined('BEHAT_SITE_RUNNING')) {
-                $lockfactory = \core\lock\lock_config::get_lock_factory('format_grid');
+                $lockfactory = lock_config::get_lock_factory('format_grid');
                 $lock = $lockfactory->get_lock('sectionid' . $coursesectionimage->sectionid, 5);
             }
             if ($lock) {
-                $coursecontext = \context_course::instance($courseid);
+                $coursecontext = context_course::instance($courseid);
                 $files = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage', $coursesectionimage->sectionid);
                 foreach ($files as $file) {
                     try {
                         $file->delete();
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         $lock->release();
                         throw $e;
                     }
@@ -808,7 +815,7 @@ class toolbox {
                 foreach ($displayedfiles as $displayedfile) {
                     try {
                         $displayedfile->delete();
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         $lock->release();
                         throw $e;
                     }
@@ -817,7 +824,7 @@ class toolbox {
                     $lock->release();
                 }
             } else {
-                throw new \moodle_exception(
+                throw new moodle_exception(
                     'imagemanagement',
                     'format_grid',
                     '',

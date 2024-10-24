@@ -26,7 +26,13 @@
 
 namespace format_grid\output\courseformat;
 
+use completion_info;
+use context_course;
 use core_courseformat\output\local\content as content_base;
+use core\output\renderer_base;
+use core\url;
+use format_grid\toolbox;
+use moodle_exception;
 use stdClass;
 
 /**
@@ -63,7 +69,7 @@ class content extends content_base {
      * @param renderer_base $output typically, the renderer that's calling this method.
      * @return string Mustache template name.
      */
-    public function get_template_name(\renderer_base $renderer): string {
+    public function get_template_name(renderer_base $renderer): string {
         return 'format_grid/local/content';
     }
 
@@ -73,7 +79,7 @@ class content extends content_base {
      * @param renderer_base $output typically, the renderer that's calling this method.
      * @return stdClass data context for a Mustache template.
      */
-    public function export_for_template(\renderer_base $output) {
+    public function export_for_template(renderer_base $output) {
         global $DB, $PAGE;
         $format = $this->format;
         $editing = $PAGE->user_is_editing();
@@ -125,9 +131,9 @@ class content extends content_base {
             $data->hasnavigation = true;
             $data->singlesection = array_shift($data->sections);
             $data->sectionreturn = $singlesectionno;
-            $data->maincoursepage = new \moodle_url('/course/view.php', ['id' => $course->id]);
+            $data->maincoursepage = new url('/course/view.php', ['id' => $course->id]);
         } else {
-            $toolbox = \format_grid\toolbox::get_instance();
+            $toolbox = toolbox::get_instance();
             $coursesectionimages = $DB->get_records('format_grid_image', ['courseid' => $course->id]);
             if (!empty($coursesectionimages)) {
                 $fs = get_file_storage();
@@ -145,7 +151,7 @@ class content extends content_base {
                         if (!empty($replacement)) {
                             $coursesectionimages[$coursesectionimage->id] = $replacement;
                         }
-                    } catch (\moodle_exception $me) {
+                    } catch (moodle_exception $me) {
                         $coursesectionimages[$coursesectionimage->id]->imageerror = $me->getMessage();
                     }
                 }
@@ -188,7 +194,7 @@ class content extends content_base {
             $displayediswebp = (get_config('format_grid', 'defaultdisplayedimagefiletype') == 2);
 
             $completionshown = false;
-            $headerimages = false;
+            $sectionheaderimages = false;
             if ($editing) {
                 $datasectionmap = [];
                 foreach ($data->sections as $datasectionkey => $datasection) {
@@ -241,7 +247,7 @@ class content extends content_base {
                     if (!empty($data->sections[$datasectionmap[$section->id]])) {
                         // Add the image to the section content.
                         $data->sections[$datasectionmap[$section->id]]->gridimage = $sectionimages[$section->id];
-                        $headerimages = true;
+                        $sectionheaderimages = true;
                     }
                 } else {
                     // Section link.
@@ -302,15 +308,15 @@ class content extends content_base {
                 $data->gridsectionnumbers = implode(',', $gridsectionnums);
             }
 
-            if ($headerimages) {
-                $data->hasheaderimages = true;
+            if ($sectionheaderimages) {
+                $data->hassectionheaderimages = true;
                 $coursesettings['imagecontainerwidth'] = 144;
                 $data->coursestyles = $toolbox->get_displayed_image_container_properties($coursesettings);
             }
         }
 
         if ($this->hassteathwithcontent) {
-            $context = \context_course::instance($course->id);
+            $context = context_course::instance($course->id);
             if (has_capability('moodle/course:update', $context)) {
                 $data->stealthwarning = get_string('stealthwarning', 'format_grid', $this->hassteathwithcontent);
             }
@@ -337,7 +343,7 @@ class content extends content_base {
      *
      * @return array data context for a mustache template
      */
-    protected function get_grid_sections(\renderer_base $output, $settings): array {
+    protected function get_grid_sections(renderer_base $output, $settings): array {
 
         $format = $this->format;
         $course = $format->get_course();
@@ -359,7 +365,7 @@ class content extends content_base {
         foreach ($sectioninfos as $thissection) {
             // The course/view.php check the section existence but the output can be called from other parts so we need to check it.
             if (!$thissection) {
-                throw new \moodle_exception(
+                throw new moodle_exception(
                     'unknowncoursesection',
                     'error',
                     '',
@@ -407,7 +413,7 @@ class content extends content_base {
      * @param stdClass $modinfo the course module information.
      * @param renderer_base $output typically, the renderer that's calling this method.
      */
-    protected function calculate_section_activity_completion($section, $course, $modinfo, \renderer_base $output) {
+    protected function calculate_section_activity_completion($section, $course, $modinfo, renderer_base $output) {
         if (empty($this->sectioncompletioncalculated[$section->section])) {
             $this->sectioncompletionmarkup[$section->section] = '';
             if (empty($modinfo->sections[$section->section])) {
@@ -421,7 +427,7 @@ class content extends content_base {
             $cancomplete = isloggedin() && !isguestuser();
             $asectionisavailable = false;
             if ($cancomplete) {
-                $completioninfo = new \completion_info($course);
+                $completioninfo = new completion_info($course);
                 foreach ($modinfo->sections[$section->section] as $cmid) {
                     $thismod = $modinfo->cms[$cmid];
 
@@ -452,7 +458,7 @@ class content extends content_base {
                 $percentage = round(($complete / $total) * 100);
                 $this->sectioncompletionpercentage[$section->section] = $percentage;
 
-                $data = new \stdClass();
+                $data = new stdClass();
                 $data->percentagevalue = $this->sectioncompletionpercentage[$section->section];
                 if ($data->percentagevalue < 11) {
                     $data->percentagecolour = 'low';

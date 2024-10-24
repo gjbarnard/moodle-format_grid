@@ -27,6 +27,9 @@
  */
 namespace format_grid\task;
 
+use core_courseformat\base;
+use core\task\manager;
+
 /**
  * Grid update displayed images task.
  *
@@ -48,12 +51,12 @@ class update_displayed_images_task {
 
         foreach ($gridcourses as $gridcourse) {
             // Instead of course_get_format() for CLI usage.
-            $format = \core_courseformat\base::instance($gridcourse->id);
+            $format = base::instance($gridcourse->id);
             $imageresizemethod = $format->get_format_options()['imageresizemethod'];
             if ($imageresizemethod != 0) {
                 $task = new update_displayed_images_adhoc();
                 $task->set_custom_data($gridcourse->id);
-                \core\task\manager::queue_adhoc_task($task);
+                manager::queue_adhoc_task($task);
             }
         }
     }
