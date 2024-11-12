@@ -1,0 +1,79 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template format_grid/local/content/section/header
+
+    Displays a course section header.
+
+    Example context (json):
+    {
+        "id": 123,
+        "name": "Section title",
+        "title": "<a href=\"http://moodle/course/view.php?id=5#section-0\">Section title</a>",
+        "url": "#",
+        "headerdisplaymultipage": true,
+        "sectionbulk": true,
+        "editing": 0
+    }
+}}
+{{#sectionbulk}}
+{{$ core_courseformat/local/content/section/bulkselect }}
+    {{> core_courseformat/local/content/section/bulkselect }}
+{{/ core_courseformat/local/content/section/bulkselect }}
+{{/sectionbulk}}
+{{#headerdisplaymultipage}}
+    {{^displayonesection}}
+        <h3 id="sectionid-{{id}}-title" class="h4 sectionname">
+            {{{title}}}
+        </h3>
+    {{/displayonesection}}
+{{/headerdisplaymultipage}}
+{{^headerdisplaymultipage}}
+    {{#sitehome}}
+        <h2 id="sectionid-{{id}}-title" class="h3 sectionname">
+            {{{title}}}
+        </h2>
+    {{/sitehome}}
+    {{^sitehome}}
+        {{^displayonesection}}
+            <div class="d-flex align-items-start position-relative">
+                <a role="button"
+                    data-toggle="collapse"
+                    data-for="sectiontoggler"
+                    href="#coursecontentcollapseid{{id}}"
+                    id="collapsesectionid{{id}}"
+                    aria-expanded="{{^contentcollapsed}}true{{/contentcollapsed}}{{#contentcollapsed}}false{{/contentcollapsed}}"
+                    aria-controls="coursecontentcollapseid{{id}}"
+                    class="btn btn-icon mr-3 icons-collapse-expand justify-content-center
+                        {{#contentcollapsed}} collapsed {{/contentcollapsed}}"
+                    aria-label="{{name}}">
+                <span class="expanded-icon icon-no-margin p-2" title="{{#str}} collapse, core {{/str}}">
+                    {{#pix}} t/expandedchevron, core {{/pix}}
+                </span>
+                <span class="collapsed-icon icon-no-margin p-2" title="{{#str}} expand, core {{/str}}">
+                    <span class="dir-rtl-hide">{{#pix}} t/collapsedchevron, core {{/pix}}</span>
+                    <span class="dir-ltr-hide">{{#pix}} t/collapsedchevron_rtl, core {{/pix}}</span>
+                </span>
+                </a>
+                <h3 class="h4 sectionname course-content-item d-flex align-self-stretch align-items-center mb-0"
+                    id="sectionid-{{id}}-title" data-for="section_title" data-id="{{id}}" data-number="{{num}}">
+                    {{{title}}}
+                </h3>
+            </div>
+        {{/displayonesection}}
+    {{/sitehome}}
+{{/headerdisplaymultipage}}
