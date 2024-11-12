@@ -94,12 +94,12 @@
 >
     {{#singleheader}}
         {{$ core_courseformat/local/content/section/header }}
-            {{> core_courseformat/local/content/section/header }}
+            {{> format_grid/local/content/section/header }}
         {{/ core_courseformat/local/content/section/header }}
     {{/singleheader}}
     {{#header}}
         {{$ core_courseformat/local/content/section/header }}
-            {{> core_courseformat/local/content/section/header }}
+            {{> format_grid/local/content/section/header }}
         {{/ core_courseformat/local/content/section/header }}
     {{/header}}
     {{^singleheader}}
@@ -154,7 +154,7 @@
     {{/header}}
 </div>
 {{> format_grid/grid_section }}
-<div id="coursecontentcollapse{{num}}"
+<div id="coursecontentcollapseid{{id}}"
      class="content {{^iscoursedisplaymultipage}}{{^sitehome}}course-content-item-content collapse {{^contentcollapsed}}show{{/contentcollapsed}}{{/sitehome}}{{/iscoursedisplaymultipage}}">
     <div class="{{#hasavailability}}description{{/hasavailability}} my-3" data-for="sectioninfo">
         {{#isstealth}}
