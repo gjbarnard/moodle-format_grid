@@ -1,6 +1,12 @@
 History
 =============
 
+Version 405.0.2 - 14/03/2025
+----------------------------
+1. Fix 'Decrease of section title font size' - #226.
+2. Fix 'Issue with Subsections in Grid Format Displayed as 'Orphaned Activities' in Moodle 4.5+' - #230.
+3. Improvements to subsection support.
+
 Version 405.0.1 - 24/10/2024
 ----------------------------
 1. Release candidate version for Moodle 4.5.

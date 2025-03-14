@@ -56,9 +56,6 @@ $string['deletesection'] = 'Delete section';
 $string['editsectionname'] = 'Edit section name';
 $string['newsectionname'] = 'New name for section {$a}';
 
-// Moodle 2.4 Course format refactoring - MDL-35218.
-$string['numbersections'] = 'Number of sections';
-
 // Setting general.
 $string['default'] = 'Default - {$a}';
 

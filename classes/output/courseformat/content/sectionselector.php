@@ -63,7 +63,7 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
         $sectionmenu = [];
         $sectionmenu[course_get_url($course)->out(false)] = get_string('maincoursepage');
         $section = 0;
-        $numsections = $format->get_last_section_number();
+        $numsections = $format->get_last_section_number_without_deligated();
         while ($section <= $numsections) {
             if ($section != $data->currentsection) {
                 $thissection = $modinfo->get_section_info($section);

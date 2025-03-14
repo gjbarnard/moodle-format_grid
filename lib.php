@@ -109,26 +109,59 @@ class format_grid extends core_courseformat\base {
     }
 
     /**
-     * Method used in the rendered and during backup instead of legacy 'numsections'
-     *
-     * Default renderer will treat sections with sectionnumber greater that the value returned by this
-     * method as "orphaned" and not display them on the course page unless in editing mode.
-     * Backup will store this value as 'numsections'.
-     *
-     * This method ensures that 3rd party course format plugins that still use 'numsections' continue to
-     * work but at the same time we no longer expect formats to have 'numsections' property.
+     * Get the number of sections not counting deligated ones.
      *
      * @return int The last section number, or -1 if sections are entirely missing
      */
-    public function get_last_section_number() {
-        $course = $this->get_course();
-        if (isset($course->gnumsections)) {
-            if ($course->gnumsections >= 0) {
-                return $course->gnumsections;
+    public function get_last_section_number_without_deligated() {
+        $lastsectionno = parent::get_last_section_number();
+
+        if (!empty($lastsectionno)) {
+            $lastsectionno -= $this->get_number_of_deligated_sections();
+        }
+
+        return $lastsectionno;
+    }
+
+    /**
+     * Method used to get the maximum number of sections for this course format without deligated.
+     * @return int Maximum number of sections.
+     */
+    public function get_max_sections_without_deligated() {
+        $maxsections = $this->get_max_sections();
+
+        if (!empty($maxsections)) {
+            $maxsections -= $this->get_number_of_deligated_sections();
+        }
+
+        return $maxsections;
+    }
+
+    /**
+     * Get the number of deligated sections.
+     *
+     * @return int Number of deligated sections.
+     */
+    protected function get_number_of_deligated_sections() {
+        global $DB;
+        $deligatedcount = 0;
+
+        $subsectionsenabled = $DB->get_field('modules', 'visible', ['name' => 'subsection']);
+        if ($subsectionsenabled) {
+            // Add in our deligated sections.  The 'subsection' table is unreliable in this regard.
+            $modinfo = $this->get_modinfo();
+            $sectioninfos = $modinfo->get_section_info_all();
+            $deligatedcount = 0;
+
+            foreach ($sectioninfos as $sectioninfo) {
+                if (!empty($sectioninfo->component)) {
+                    // Deligated section.
+                    $deligatedcount++;
+                }
             }
         }
 
-        return parent::get_last_section_number();
+        return $deligatedcount;
     }
 
     /**
@@ -207,8 +240,11 @@ class format_grid extends core_courseformat\base {
      * @return bool;
      */
     public function is_section_visible(section_info $section): bool {
-        if ($section->section > $this->get_last_section_number()) {
-            // Stealth section.
+        if (!$section->uservisible) {
+            return false;
+        }
+        if (($section->section > $this->get_last_section_number_without_deligated()) && (empty($section->component))) {
+            // Stealth section that is not a deligated one.
             global $PAGE;
             $context = context_course::instance($this->course->id);
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
@@ -219,7 +255,36 @@ class format_grid extends core_courseformat\base {
             // Don't show.
             return false;
         }
-        return parent::is_section_visible($section);
+        $shown = parent::is_section_visible($section);
+        if (($shown) && ($section->sectionnum == 0)) {
+            // Show section zero if summary has content, otherwise check modules.
+            if (empty(strip_tags($section->summary))) {
+                // Don't show section zero if no modules or all modules unavailable to user.
+                $showmovehere = ismoving($this->course->id);
+                if (!$showmovehere) {
+                    global $PAGE;
+                    $context = context_course::instance($this->course->id);
+                    if (!($PAGE->user_is_editing() && has_capability('moodle/course:update', $context))) {
+                        $modshown = false;
+                        $modinfo = get_fast_modinfo($this->course);
+
+                        if (!empty($modinfo->sections[$section->section])) {
+                            foreach ($modinfo->sections[$section->section] as $modnumber) {
+                                $mod = $modinfo->cms[$modnumber];
+                                if ($mod->is_visible_on_course_page()) {
+                                    // At least one is.
+                                    $modshown = true;
+                                    break;
+                                }
+                            }
+                        }
+                        $shown = $modshown;
+                    }
+                }
+            }
+        }
+
+        return $shown;
     }
 
     /**
@@ -384,18 +449,7 @@ class format_grid extends core_courseformat\base {
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseid = $this->get_courseid();
-            if ($courseid == 1) { // New course.
-                $defaultnumsections = $courseconfig->numsections;
-            } else { // Existing course that may not have '(g)numsections' - see get_last_section().
-                global $DB;
-                $defaultnumsections = $DB->get_field_sql('SELECT max(section) from {course_sections}
-                    WHERE course = ?', [$courseid]);
-            }
             $courseformatoptions = [
-                'gnumsections' => [
-                    'default' => $defaultnumsections,
-                    'type' => PARAM_INT,
-                ],
                 'hiddensections' => [
                     'default' => $courseconfig->hiddensections,
                     'type' => PARAM_INT,
@@ -442,20 +496,8 @@ class format_grid extends core_courseformat\base {
                 ],
             ];
         }
-        if ($foreditform && !isset($courseformatoptions['gnumsections']['label'])) {
-            if (is_null($courseconfig)) {
-                $courseconfig = get_config('moodlecourse');
-            }
-            $sectionmenu = [];
-            for ($i = 0; $i <= $courseconfig->maxsections; $i++) {
-                $sectionmenu[$i] = "$i";
-            }
+        if ($foreditform && !isset($courseformatoptions['hiddensections']['label'])) {
             $courseformatoptionsedit = [
-                'gnumsections' => [
-                    'label' => new lang_string('numbersections', 'format_grid'),
-                    'element_type' => 'select',
-                    'element_attributes' => [$sectionmenu],
-                ],
                 'hiddensections' => [
                     'label' => new lang_string('hiddensections'),
                     'help' => 'hiddensections',
@@ -659,7 +701,7 @@ class format_grid extends core_courseformat\base {
      * @return array array of references to the added form elements.
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $CFG;
+        global $CFG, $COURSE;
         MoodleQuickForm::registerElementType(
             'sectionfilemanager',
             "$CFG->dirroot/course/format/grid/form/sectionfilemanager.php",
@@ -668,29 +710,19 @@ class format_grid extends core_courseformat\base {
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
 
-        /* Increase the number of sections combo box values if the user has increased the number of sections
-           using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
-           reduced below the number of sections already set for the course on the site administration course
-           defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
-           activities / resources. */
-        if (!$forsection) {
-            $maxsections = get_config('moodlecourse', 'maxsections');
-            $numsections = $mform->getElementValue('gnumsections');
-            $numsections = $numsections[0];
-            if ($numsections < 0) {
-                $numsections = $this->get_last_section_number();
-                /* Instead of setValue on the element as the default gets reused when the form is re-arranged by
-                   'definition_after_data' in '/course/edit_form.php', specifically the calls to 'insertElementBefore'
-                   after this method was called. */
-                $mform->setDefault('gnumsections', $numsections);
-                $this->restore_gnumsections($numsections);
+        if (!$forsection && (empty($COURSE->id) || $COURSE->id == SITEID)) {
+            // Add "numsections" element to the create course form - it will force new course to be prepopulated
+            // with empty sections.
+            // The "Number of sections" option is no longer available when editing course, instead teachers should
+            // delete and add sections when needed.
+            $courseconfig = get_config('moodlecourse');
+            $max = (int)$courseconfig->maxsections;
+            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
+            $mform->setType('numsections', PARAM_INT);
+            if (is_null($mform->getElementValue('numsections'))) {
+                $mform->setDefault('numsections', $courseconfig->numsections);
             }
-            if ($numsections > $maxsections) {
-                $element = $mform->getElement('gnumsections');
-                for ($i = $maxsections + 1; $i <= $numsections; $i++) {
-                    $element->addOption("$i", $i);
-                }
-            }
+            array_unshift($elements, $element);
         }
 
         return $elements;
@@ -714,51 +746,17 @@ class format_grid extends core_courseformat\base {
         $currentsettings = $this->get_settings();
         $data = (array) $data;
         if ($oldcourse !== null) {
-            $oldcourse = (array) $oldcourse;
+            $oldcourse = (array)$oldcourse;
             $options = $this->course_format_options();
-
             foreach ($options as $key => $unused) {
                 if (!array_key_exists($key, $data)) {
                     if (array_key_exists($key, $oldcourse)) {
                         $data[$key] = $oldcourse[$key];
-                    } else if ($key === 'gnumsections') {
-                        if (array_key_exists('numsections', $oldcourse)) {
-                            // Transpose numsections to gnumsections.
-                            $data[$key] = $oldcourse['numsections'];
-                        } else {
-                            /* The previous format does not have the field 'numsections' and $data['gnumsections'] is not set,
-                               we fill it with the maximum section number from the DB. */
-                            $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
-                                WHERE course = ?', [$this->courseid]);
-                            if ($maxsection) {
-                                // If there are no sections, or just default 0-section, 'gnumsections' will be set to default.
-                                $data['gnumsections'] = $maxsection;
-                            }
-                        }
                     }
                 }
             }
         }
         $changes = $this->update_format_options($data);
-
-        if ($changes && array_key_exists('gnumsections', $data)) {
-            $numsections = (int)$data['gnumsections'];
-            $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
-                WHERE course = ?', [$this->courseid]);
-            if ($numsections < $maxsection) {
-                // The setting gnumsections has decreased, try to completely delete the orphaned
-                // sections (unless they are not empty).
-                for ($sectionnum = $maxsection; $sectionnum > $numsections; $sectionnum--) {
-                    if (!$this->delete_section($sectionnum, false)) {
-                        break;
-                    }
-                }
-            } else if ($numsections > $maxsection) {
-                // The setting gnumsections has increased then create the sections.
-                $course = $this->get_course();
-                course_create_sections_if_missing($course, range(0, $numsections));
-            }
-        }
 
         $newsettings = $this->get_settings(true); // Ensure we get the new values.
 
@@ -1010,45 +1008,6 @@ class format_grid extends core_courseformat\base {
 
         $rv['section_availability'] = $renderer->render($availability);
         return $rv;
-    }
-
-    /**
-     * Restores the numsections if was not in the backup or if it was then transposes to gnumsections.
-     * @param int $numsections The number of sections.
-     */
-    public function restore_gnumsections($numsections) {
-        $data = ['gnumsections' => $numsections];
-        $this->update_course_format_options($data);
-    }
-
-    /**
-     * A section has been added.  Should only be called from the state actions instance.
-     */
-    public function section_added() {
-        $this->change_gnumsections(true);
-    }
-
-    /**
-     * A section has been deleted.  Should only be called from the state actions instance.
-     */
-    public function section_deleted() {
-        $this->change_gnumsections(false);
-    }
-
-    /**
-     * A section has been added or deleted.  Should only be called via the state actions instance.
-     *
-     * @param bool $add Add a section or delete if false.
-     */
-    protected function change_gnumsections($add) {
-        $currentsettings = $this->get_settings();
-        if ($add) {
-            $newgnumsetions = $currentsettings['gnumsections'] + 1;
-        } else {
-            $newgnumsetions = $currentsettings['gnumsections'] - 1;
-        }
-        $data = ['gnumsections' => $newgnumsetions];
-        $this->update_format_options($data);
     }
 
     /**

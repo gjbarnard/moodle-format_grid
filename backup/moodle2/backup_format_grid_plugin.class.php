@@ -29,29 +29,7 @@
  */
 class backup_format_grid_plugin extends backup_format_plugin {
     /**
-     * Returns the format information to attach to course element
-     */
-    protected function define_course_plugin_structure() {
-
-        // Define the virtual plugin element with the condition to fulfill.
-        $plugin = $this->get_plugin_element(null, '/course/format', 'grid');
-
-        // This is so that we know the value of 'gnumsections' before its changed by the restore process and lost
-        // before it is needed.
-        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), null, ['name', 'value']);
-
-        // Connect the visible container ASAP.
-        $plugin->add_child($pluginwrapper);
-
-        // Set source to populate the data.
-        $pluginwrapper->set_source_table('course_format_options', ['courseid' => backup::VAR_PARENTID]);
-
-        // Don't need to annotate ids nor files.
-        return $plugin;
-    }
-
-    /**
-     * Returns the format information to attach to section element
+     * Returns the format information to attach to section element.
      */
     protected function define_section_plugin_structure() {
 

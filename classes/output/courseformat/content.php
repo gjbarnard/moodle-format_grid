@@ -137,7 +137,7 @@ class content extends content_base {
             $coursesectionimages = $DB->get_records('format_grid_image', ['courseid' => $course->id]);
             if (!empty($coursesectionimages)) {
                 $fs = get_file_storage();
-                $coursecontext = \context_course::instance($course->id);
+                $coursecontext = context_course::instance($course->id);
                 foreach ($coursesectionimages as $coursesectionimage) {
                     try {
                         $replacement = $toolbox->check_displayed_image(
@@ -251,7 +251,7 @@ class content extends content_base {
                     }
                 } else {
                     // Section link.
-                    $sectionimages[$section->id]->sectionurl = new \moodle_url(
+                    $sectionimages[$section->id]->sectionurl = new url(
                         '/course/section.php',
                         ['id' => $section->id]
                     );
@@ -351,8 +351,16 @@ class content extends content_base {
 
         // Generate section list.
         $sections = [];
-        $numsections = $format->get_last_section_number();
+        $numsections = $format->get_last_section_number_without_deligated();
+        $sectioncount = 0;
         $sectioninfos = $modinfo->get_section_info_all();
+
+        foreach ($sectioninfos as $sectioninfokey => $sectioninfo) {
+            if (!empty($sectioninfo->component)) {
+                // Deligated section.
+                unset($sectioninfos[$sectioninfokey]);
+            }
+        }
 
         $coursesettings = $format->get_settings();
         $sectionzeronotingrid = ($coursesettings['sectionzeroingrid'] == 1);
@@ -377,8 +385,11 @@ class content extends content_base {
                 );
             }
 
-            if ($thissection->section > $numsections) {
-                if (!empty($modinfo->sections[$thissection->section])) {
+            $sectioncount++;
+            if ($sectioncount > $numsections) {
+                // Only count sections that are not deligated and have content.
+                $temp = $thissection->hasactivities;
+                if (!empty($modinfo->sectionmodules[$thissection->section])) {
                     $this->hassteathwithcontent++;
                 }
                 continue;
