@@ -1,6 +1,51 @@
 History
 =============
 
+Version 405.0.3 - 19/03/2025
+----------------------------
+1. Fix 'Issue with Expanding/Collapsing Sections in Edit Mode' - #232.
+2. Take into account sub-sections when calculating completion.
+3. Add 'defaultcompletionlowpercentagevalue' and 'defaultcompletionmediumpercentagevalue' settings to set
+   a site level the percentage value should be below in order to be that colour.  You can set the colours
+   in CSS, the values as supplied are:
+
+        .format-grid .grid-completion.grid-completion-colour-low {
+            background-color: magenta;
+            color: white;
+        }
+
+        .format-grid .grid-completion.grid-completion-colour-middle {
+            background-color: yellow;
+            color: black;
+        }
+
+        .format-grid .grid-completion.grid-completion-colour-high{
+            background-color: green;
+            color: white;
+        }
+
+        .format-grid .grid-completion.grid-completion-percentagequarter-1 {
+            border-right-color: lightgreen;
+        }
+
+        .format-grid .grid-completion.grid-completion-percentagequarter-2 {
+            border-bottom-color: lightgreen;
+            border-right-color: lightgreen;
+        }
+
+        .format-grid .grid-completion.grid-completion-percentagequarter-3 {
+            border-bottom-color: lightgreen;
+            border-left-color: lightgreen;
+            border-right-color: lightgreen;
+        }
+
+        .format-grid .grid-completion.grid-completion-percentagequarter-4 {
+            border-color: lightgreen;
+        }
+
+4. Fix 'Hidden sections are shown as not available' are not shown at all to student.
+5. Fix 'allow_stealth_module_visibility' still using 'gnumsections'.
+
 Version 405.0.2 - 14/03/2025
 ----------------------------
 1. Fix 'Decrease of section title font size' - #226.

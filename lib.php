@@ -240,9 +240,6 @@ class format_grid extends core_courseformat\base {
      * @return bool;
      */
     public function is_section_visible(section_info $section): bool {
-        if (!$section->uservisible) {
-            return false;
-        }
         if (($section->section > $this->get_last_section_number_without_deligated()) && (empty($section->component))) {
             // Stealth section that is not a deligated one.
             global $PAGE;
@@ -968,8 +965,8 @@ class format_grid extends core_courseformat\base {
      * @return bool
      */
     public function allow_stealth_module_visibility($cm, $section) {
-        // Allow the third visibility state inside visible sections or in section 0, not allow in orphaned sections.
-        return !$section->section || ($section->visible && $section->section <= $this->get_course()->gnumsections);
+        // Allow the third visibility state inside visible sections or in section 0.
+        return !$section->section || $section->visible;
     }
 
     /**

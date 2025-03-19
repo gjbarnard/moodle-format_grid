@@ -147,6 +147,11 @@ $string['showcompletion_help'] = 'Show the completion of the section on the grid
 $string['defaultshowcompletion'] = 'Show completion';
 $string['defaultshowcompletion_desc'] = 'Show the completion of the section on the grid.';
 
+$string['defaultcompletionlowpercentagevalue'] = 'Completion low percentage value';
+$string['defaultcompletionlowpercentagevalue_desc'] = 'For a completion percentage to be \'low\' then it must be less than this value.';
+$string['defaultcompletionmediumpercentagevalue'] = 'Completion medium percentage value';
+$string['defaultcompletionmediumpercentagevalue_desc'] = 'For a completion percentage to be \'medium\' then it must be less than this value.';
+
 // Other.
 $string['information'] = 'Information';
 $string['informationsettings'] = 'Information settings';
@@ -162,6 +167,11 @@ $string['versionalpha'] = 'Alpha version - Almost certainly contains bugs.  This
 $string['versionbeta'] = 'Beta version - Likely to contain bugs.  Ready for testing by administrators on a test server only.';
 $string['versionrc'] = 'Release candidate version - May contain bugs.  Check completely on a test server before considering on a production server.';
 $string['versionstable'] = 'Stable version - Could contain bugs.  Check on a test server before installing on your production server.';
+
+// Setting class admin_setting_configinteger.
+$string['asconfigintlower'] = '{$a->value} is less than the lower range limit of {$a->lower}';
+$string['asconfigintupper'] = '{$a->value} is greater than the upper range limit of {$a->upper}';
+$string['asconfigintnan'] = '{$a->value} is not a number';
 
 // Exception messages.
 $string['cannotconvertuploadedimagetodisplayedimage'] = 'Cannot convert uploaded image to displayed image - {$a}.';
