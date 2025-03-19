@@ -240,9 +240,9 @@ class format_grid extends core_courseformat\base {
      * @return bool;
      */
     public function is_section_visible(section_info $section): bool {
+        global $PAGE;
         if (($section->section > $this->get_last_section_number_without_deligated()) && (empty($section->component))) {
             // Stealth section that is not a deligated one.
-            global $PAGE;
             $context = context_course::instance($this->course->id);
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $modinfo = get_fast_modinfo($this->course);
@@ -251,6 +251,12 @@ class format_grid extends core_courseformat\base {
             }
             // Don't show.
             return false;
+        } else if (!$PAGE->user_is_editing()) {
+            $sectionformatoptions = $this->get_format_options($section);
+            if ($sectionformatoptions['sectionhideingrid'] == 2) { // Yes.
+                // Don't show.
+                return false;
+            }
         }
         $shown = parent::is_section_visible($section);
         if (($shown) && ($section->sectionnum == 0)) {
@@ -824,6 +830,10 @@ class format_grid extends core_courseformat\base {
                     'default' => '',
                     'type' => PARAM_RAW,
                 ],
+                'sectionhideingrid' => [
+                    'default' => 1, // No.
+                    'type' => PARAM_INT,
+                ],
             ];
         }
         if ($foreditform && !isset($sectionformatoptions['sectionimage_filemanager']['label'])) {
@@ -863,6 +873,18 @@ class format_grid extends core_courseformat\base {
                     'help' => 'sectionbreakheading',
                     'help_component' => 'format_grid',
                     'element_type' => 'textarea',
+                ],
+                'sectionhideingrid' => [
+                    'label' => new lang_string('sectionhideingrid', 'format_grid'),
+                    'help' => 'sectionhideingrid',
+                    'help_component' => 'format_grid',
+                    'element_type' => 'select',
+                    'element_attributes' => [
+                        [
+                            1 => new lang_string('no'),
+                            2 => new lang_string('yes'),
+                        ],
+                    ],
                 ],
             ];
             $sectionformatoptions = array_merge_recursive($sectionformatoptions, $sectionformatoptionsedit);
