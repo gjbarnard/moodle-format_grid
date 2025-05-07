@@ -224,6 +224,32 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2024032904, 'format', 'grid');
     }
 
+    if ($oldversion < 2024101503) {
+        $records = $DB->get_records(
+            'course_format_options',
+            [
+                'format' => 'grid',
+                'name' => 'gnumsections',
+            ],
+            '',
+            'id'
+        );
+
+        if (!empty($records)) {
+            // Remove 'gnumsections'.
+            $DB->delete_records(
+                'course_format_options',
+                [
+                    'format' => 'grid',
+                    'name' => 'gnumsections',
+                ]
+            );
+        }
+
+        // Grid savepoint reached.
+        upgrade_plugin_savepoint(true, 2024101503, 'format', 'grid');
+    }
+
     // Automatic 'Purge all caches'....
     purge_all_caches();
 

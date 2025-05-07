@@ -1,6 +1,10 @@
 History
 =============
 
+Version 405.0.4 - In development
+----------------------------
+1. Remove 'gnumsections' from database if any exist and update Behat tests to use initial 'numsections'.
+
 Version 405.0.3 - 19/03/2025
 ----------------------------
 1. Fix 'Issue with Expanding/Collapsing Sections in Edit Mode' - #232.

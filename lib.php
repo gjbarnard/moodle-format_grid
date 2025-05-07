@@ -830,6 +830,10 @@ class format_grid extends core_courseformat\base {
                     'default' => '',
                     'type' => PARAM_RAW,
                 ],
+                'showsectioncompletion' => [
+                    'default' => 2, // Yes.
+                    'type' => PARAM_INT,
+                ],
                 'sectionhideingrid' => [
                     'default' => 1, // No.
                     'type' => PARAM_INT,
@@ -873,6 +877,18 @@ class format_grid extends core_courseformat\base {
                     'help' => 'sectionbreakheading',
                     'help_component' => 'format_grid',
                     'element_type' => 'textarea',
+                ],
+                'showsectioncompletion' => [
+                    'label' => new lang_string('showsectioncompletion', 'format_grid'),
+                    'help' => 'showsectioncompletion',
+                    'help_component' => 'format_grid',
+                    'element_type' => 'select',
+                    'element_attributes' => [
+                        [
+                            1 => new lang_string('no'),
+                            2 => new lang_string('yes'),
+                        ],
+                    ],
                 ],
                 'sectionhideingrid' => [
                     'label' => new lang_string('sectionhideingrid', 'format_grid'),

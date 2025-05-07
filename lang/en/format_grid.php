@@ -148,9 +148,11 @@ $string['defaultsectionbadgeingridbox_desc'] = 'Show the section badge in the gr
 
 // Completion.
 $string['showcompletion'] = 'Show completion';
-$string['showcompletion_help'] = 'Show the completion of the section on the grid';
+$string['showcompletion_help'] = 'Show the completion percentage of the sections';
 $string['defaultshowcompletion'] = 'Show completion';
-$string['defaultshowcompletion_desc'] = 'Show the completion of the section on the grid.';
+$string['defaultshowcompletion_desc'] = 'Show the completion percentage of the sections.';
+$string['showsectioncompletion'] = 'Show completion for the section';
+$string['showsectioncompletion_help'] = 'This allows you to state if a given section has the completion percentage showing';
 
 $string['defaultcompletionlowpercentagevalue'] = 'Completion low percentage value';
 $string['defaultcompletionlowpercentagevalue_desc'] = 'For a completion percentage to be \'low\' then it must be less than this value.';

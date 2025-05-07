@@ -146,9 +146,12 @@
     height: 42px;
     justify-content: center;
     padding: 4px;
+    width: 42px;
+}
+
+.format-grid .thegrid .grid-completion {
     position: absolute;
     right: 0.5rem;
-    width: 42px;
 }
 
 .format-grid .grid-completion.grid-completion-colour-low {

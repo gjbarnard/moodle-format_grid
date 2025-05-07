@@ -7,7 +7,7 @@ Feature: Image upload
       | username | firstname | lastname | email          |
       | daisy    | Daisy     | Grid     | daisy@grid.com |
     And the following "courses" exist:
-      | fullname | shortname | format  | gnumsections |
+      | fullname | shortname | format  | numsections |
       | Grid     | GD        | grid    | 5            |
     And the following "course enrolments" exist:
       | user     | course | role           |
