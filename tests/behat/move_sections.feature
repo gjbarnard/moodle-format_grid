@@ -9,7 +9,7 @@ Feature: Sections can be moved - adapted from core test of the same name.
       | username | firstname | lastname | email                |
       | daisy    | Daisy     | Grid     | daisy@grid.com |
     And the following "courses" exist:
-      | fullname | shortname | format | coursedisplay | gnumsections |
+      | fullname | shortname | format | coursedisplay | numsections |
       | Grid     | GD        | grid   | 0             | 5            |
     And the following "course enrolments" exist:
       | user  | course | role           |

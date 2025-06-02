@@ -49,4 +49,14 @@ class delegatedsection extends delegatedsection_base {
         parent::__construct($format, $section);
         $this->isstealth = false;
     }
+
+    /**
+     * Get the name of the template to use for this templatable.
+     *
+     * @param renderer_base $renderer The renderer requesting the template name.
+     * @return string.
+     */
+    public function get_template_name(\renderer_base $renderer): string {
+        return 'format_grid/local/content/delegatedsection';
+    }
 }

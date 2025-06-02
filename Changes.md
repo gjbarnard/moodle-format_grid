@@ -1,6 +1,12 @@
 History
 =============
 
+Version 405.1.0 - 02/06/2025
+----------------------------
+1. Remove 'gnumsections' from database if any exist and update Behat tests to use initial 'numsections'.
+2. Add sub-subsection completion with the ability to show / hide at both the section and sub-section level.
+3. Adjust completion percentage font size when 100%.
+
 Version 405.0.3 - 19/03/2025
 ----------------------------
 1. Fix 'Issue with Expanding/Collapsing Sections in Edit Mode' - #232.

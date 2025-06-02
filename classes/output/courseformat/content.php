@@ -44,8 +44,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class content extends content_base {
-    /** @var array sectioncompletionpercentage */
-    private $sectioncompletionpercentage = [];
     /** @var array sectioncompletionmarkup */
     private $sectioncompletionmarkup = [];
     /** @var array sectioncompletioncalculated */
@@ -356,10 +354,16 @@ class content extends content_base {
         $sectioncount = 0;
         $sectioninfos = $modinfo->get_section_info_all();
         $deligatedsections = []; // Array of parent section number with an array of deligated section numbers if they have them.
+        $sectioncompletion = []; // Array of sections that have been set to show their completion.
 
         foreach ($sectioninfos as $sectioninfokey => $sectioninfo) {
+            $sectionformatoptions = $this->format->get_format_options($sectioninfo);
+            if ((!empty($sectionformatoptions['showsectioncompletion'])) && ($sectionformatoptions['showsectioncompletion'] == 2)) {
+                $sectioncompletion[$sectioninfo->id] = true;
+            }
+
             if (!empty($sectioninfo->component)) {
-                // Deligated section.
+                // Deligated section.  Note, that even if the deligated section does not show its completion then its parent may.
                 if ((!$editing) && ((!empty($settings['showcompletion'])) && ($settings['showcompletion'] == 2))) {
                     // Work out the parent for completion.
                     foreach ($modinfo->delegatedbycm as $delegatedsectioninfokey => $delegatedsectioninfo) {
@@ -423,7 +427,10 @@ class content extends content_base {
             $section->id = $thissection->id;
             $section->num = $thissection->section;
             $section->name = $output->section_title_without_link($thissection, $course);
-            if ((!$editing) && ((!empty($settings['showcompletion'])) && ($settings['showcompletion'] == 2))) {
+            if ((!$editing) &&
+                (!empty($sectioncompletion[$thissection->id])) &&
+                ((!empty($settings['showcompletion'])) &&
+                ($settings['showcompletion'] == 2))) {
                 $this->calculate_section_activity_completion(
                     $thissection->section, $course, $modinfo, $deligatedsections, $output);
                 if (!empty($this->sectioncompletionmarkup[$thissection->section])) {
@@ -482,43 +489,56 @@ class content extends content_base {
 
             // Output section completion data.
             if ($total > 0) {
-                $percentage = round(($complete / $total) * 100);
-                $this->sectioncompletionpercentage[$sectionnum] = $percentage;
-
-                $low = get_config('format_grid', 'defaultcompletionlowpercentagevalue');
-                if (empty($low)) {
-                    $low = 50; // Default.
-                }
-                $medium = get_config('format_grid', 'defaultcompletionmediumpercentagevalue');
-                if (empty($medium)) {
-                    $medium = 80; // Default.
-                }
-                $data = new stdClass();
-                $data->percentagevalue = $this->sectioncompletionpercentage[$sectionnum];
-                if ($data->percentagevalue < $low) {
-                    $data->percentagecolour = 'low';
-                } else if ($data->percentagevalue < $medium) {
-                    $data->percentagecolour = 'middle';
-                } else {
-                    $data->percentagecolour = 'high';
-                }
-                if ($data->percentagevalue < 1) {
-                    $data->percentagequarter = 0;
-                } else if ($data->percentagevalue < 26) {
-                    $data->percentagequarter = 1;
-                } else if ($data->percentagevalue < 51) {
-                    $data->percentagequarter = 2;
-                } else if ($data->percentagevalue < 76) {
-                    $data->percentagequarter = 3;
-                } else {
-                    $data->percentagequarter = 4;
-                }
-                $this->sectioncompletionmarkup[$sectionnum] =
-                    $output->render_from_template('format_grid/grid_completion', $data);
+                $this->sectioncompletionmarkup[$sectionnum] = $this->render_grid_completion($complete, $total, $output);
             }
 
             $this->sectioncompletioncalculated[$sectionnum] = true;
         }
+    }
+
+    /**
+     * Generate the markup for completion of the activities in a section.
+     *
+     * @param int $complete The number of complete modules.
+     *
+     * @return string Markup if any.
+     */
+    public function render_grid_completion($complete, $total, renderer_base $output) {
+        $markup = '';
+        if ($total > 0) {
+            $percentage = round(($complete / $total) * 100);
+
+            $low = get_config('format_grid', 'defaultcompletionlowpercentagevalue');
+            if (empty($low)) {
+                $low = 50; // Default.
+            }
+            $medium = get_config('format_grid', 'defaultcompletionmediumpercentagevalue');
+            if (empty($medium)) {
+                $medium = 80; // Default.
+            }
+            $data = new stdClass();
+            $data->percentagevalue = $percentage;
+            if ($data->percentagevalue < $low) {
+                $data->percentagecolour = 'low';
+            } else if ($data->percentagevalue < $medium) {
+                $data->percentagecolour = 'middle';
+            } else {
+                $data->percentagecolour = 'high';
+            }
+            if ($data->percentagevalue < 1) {
+                $data->percentagequarter = 0;
+            } else if ($data->percentagevalue < 26) {
+                $data->percentagequarter = 1;
+            } else if ($data->percentagevalue < 51) {
+                $data->percentagequarter = 2;
+            } else if ($data->percentagevalue < 76) {
+                $data->percentagequarter = 3;
+            } else {
+                $data->percentagequarter = 4;
+            }
+            $markup = $output->render_from_template('format_grid/grid_completion', $data);
+        }
+        return $markup;
     }
 
     /**

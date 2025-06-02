@@ -146,9 +146,12 @@
     height: 42px;
     justify-content: center;
     padding: 4px;
+    width: 42px;
+}
+
+.format-grid .thegrid .grid-completion {
     position: absolute;
     right: 0.5rem;
-    width: 42px;
 }
 
 .format-grid .grid-completion.grid-completion-colour-low {
@@ -186,7 +189,11 @@
 }
 
 .format-grid .grid-completion .grid-percentage {
-    font-size: 0.75em;
+    font-size: 0.75rem;
+}
+
+.format-grid .grid-completion .grid-percentage.grid-percentagevalue-100 {
+    font-size: 0.6rem;
 }
 
 .format-grid .grid-image-preview {
