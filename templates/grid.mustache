@@ -149,9 +149,9 @@
 <div class="modal fade" id="gridPopup" tabindex="-1" aria-labelledby="gridPopupLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="justify-content: space-between;">
                 <h2 class="modal-title h4" id="gridPopupLabel">Section X</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{#str}}close, form{{/str}}">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="{{#str}}close, form{{/str}}">
                     <span class="fa fa-times" aria-hidden="true"></span>
                 </button>
             </div>
@@ -198,12 +198,12 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button id="gridPopupCarouselLeft" class="btn btn-light" type="button" data-target="#gridPopupCarousel" data-slide="prev">
+                <button id="gridPopupCarouselLeft" class="btn btn-light" type="button" data-bs-target="#gridPopupCarousel" data-bs-slide="prev">
                     <span class="fa fa-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">{{#str}}previoussection{{/str}}</span>
                 </button>
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">{{#str}}close, form{{/str}}</button>
-                <button id="gridPopupCarouselRight" class="btn btn-light" type="button" data-target="#gridPopupCarousel" data-slide="next">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{#str}}close, form{{/str}}</button>
+                <button id="gridPopupCarouselRight" class="btn btn-light" type="button" data-bs-target="#gridPopupCarousel" data-bs-slide="next">
                     <span class="fa fa-chevron-right" aria-hidden="true"></span>
                     <span class="sr-only">{{#str}}nextsection{{/str}}</span>
                 </button>
