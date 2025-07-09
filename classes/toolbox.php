@@ -540,12 +540,12 @@ class toolbox {
                 // Change the supplied height - 'resizeToWidth'.
                 $ratio = $requestedwidth / $originalwidth;
                 $width = $requestedwidth;
-                $height = $originalheight * $ratio;
+                $height = intval($originalheight * $ratio);
                 $cropheight = true;
             } else {
                 // Change the supplied width - 'resizeToHeight'.
                 $ratio = $requestedheight / $originalheight;
-                $width = $originalwidth * $ratio;
+                $width = intval($originalwidth * $ratio);
                 $height = $requestedheight;
                 $cropheight = false;
             }
@@ -561,7 +561,21 @@ class toolbox {
             }
 
             // First step, resize.
-            imagecopybicubic($tempimage, $original, 0, 0, 0, 0, $width, $height, $originalwidth, $originalheight);
+            if (!imagecopyresampled($tempimage, $original, 0, 0, 0, 0, $width, $height, $originalwidth, $originalheight)) {
+                imagedestroy($tempimage);
+                imagedestroy($original);
+                unlink($filepath);
+                throw new moodle_exception(
+                    'imagemanagement',
+                    'format_grid',
+                    '',
+                    get_string(
+                        'imagecopyresampledfailed',
+                        'format_grid',
+                        self::debugdata_decode($debugdata)
+                    )
+                );
+            }
 
             // Second step, crop.
             if ($cropheight) {
@@ -573,6 +587,7 @@ class toolbox {
                 $srcoffset = ($width / 2) - ($requestedwidth / 2);
                 $width = $requestedwidth;
             }
+            $srcoffset = intval($srcoffset);
 
             if (function_exists('imagecreatetruecolor')) {
                 $finalimage = imagecreatetruecolor($width, $height);
@@ -586,10 +601,29 @@ class toolbox {
 
             if ($cropheight) {
                 // This is 'cropCenterHeight'.
-                imagecopybicubic($finalimage, $tempimage, 0, 0, 0, $srcoffset, $width, $height, $width, $height);
+                $srcx = 0;
+                $srcy = $srcoffset;
             } else {
                 // This is 'cropCenterWidth'.
-                imagecopybicubic($finalimage, $tempimage, 0, 0, $srcoffset, 0, $width, $height, $width, $height);
+                $srcx = $srcoffset;
+                $srcy = 0;
+            }
+
+            if (!imagecopyresampled($finalimage, $tempimage, 0, 0, $srcx, $srcy, $width, $height, $width, $height)) {
+                imagedestroy($finalimage);
+                imagedestroy($tempimage);
+                imagedestroy($original);
+                unlink($filepath);
+                throw new moodle_exception(
+                    'imagemanagement',
+                    'format_grid',
+                    '',
+                    get_string(
+                        'imagecopyresampledfailed',
+                        'format_grid',
+                        self::debugdata_decode($debugdata)
+                    )
+                );
             }
             imagedestroy($tempimage);
         } else { // Scale.
@@ -614,7 +648,21 @@ class toolbox {
                 $finalimage = imagecreate($targetwidth, $targetheight);
             }
 
-            imagecopybicubic($finalimage, $original, 0, 0, 0, 0, $targetwidth, $targetheight, $originalwidth, $originalheight);
+            if (!imagecopyresampled($finalimage, $original, 0, 0, 0, 0, $targetwidth, $targetheight, $originalwidth, $originalheight)) {
+                imagedestroy($finalimage);
+                imagedestroy($original);
+                unlink($filepath);
+                throw new moodle_exception(
+                    'imagemanagement',
+                    'format_grid',
+                    '',
+                    get_string(
+                        'imagecopyresampledfailed',
+                        'format_grid',
+                        self::debugdata_decode($debugdata)
+                    )
+                );
+            }
         }
 
         ob_start();

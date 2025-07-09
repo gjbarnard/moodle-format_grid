@@ -180,6 +180,7 @@ $string['cannotconvertuploadedimagetodisplayedimage'] = 'Cannot convert uploaded
 $string['cannotgetmanagesectionimagelock'] = 'Cannot get manage section image lock.  This can happen if two people are editing the settinsg of the same section on the same course at the same time.';
 $string['formatnotsupported'] = 'Format is not supported at this server, please fix the system configuration to have the GD PHP extension installed - {$a}';
 $string['functionfailed'] = 'Function failed on image - {$a}';
+$string['imagecopyresampledfailed'] = 'Image copy resampled failed on image - {$a}';
 $string['imagemanagement'] = 'Image management: {$a}.';
 $string['mimetypenotsupported'] = 'Mime type is not supported as an image format in the Grid format - {$a}';
 $string['originalheightempty'] = 'Original height is empty - {$a}';

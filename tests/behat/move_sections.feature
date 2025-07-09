@@ -20,12 +20,6 @@ Feature: Sections can be moved - adapted from core test of the same name.
     And I log in as "daisy"
     And I am on "Grid" course homepage with editing mode on
 
-  Scenario: Move up and down a section with Javascript disabled in a single page course
-    When I move down section "1"
-    Then I should see "Test forum name" in the "Section 2" "section"
-    And I move up section "2"
-    And I should see "Test forum name" in the "Section 1" "section"
-
   @javascript
   Scenario: Move section with javascript
     When I open section "1" edit menu
@@ -35,7 +29,8 @@ Feature: Sections can be moved - adapted from core test of the same name.
 
   @_file_upload @javascript
   Scenario: Move section with an image - note: The duckling image is copyright 'Gareth J Barnard 2020' use only for this test without permission.
-    When I edit the section "2"
+    When I open section "2" edit menu
+    And I click on "Edit settings" "link" in the "Section 2" "section"
     And I upload "course/format/grid/tests/fixtures/Duckling.jpg" file to "Section image" filemanager
     And I set the field "Image alt text" to "Duckling"
     And I press "Save changes"

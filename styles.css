@@ -70,7 +70,7 @@
 }
 
 .format-grid .thegrid .grid-section.currentgridsection {
-    border: 2px solid var(--primary);
+    border: 2px solid var(--bs-primary);
 }
 
 .format-grid .thegrid .grid-section-inner .card-body {
@@ -129,6 +129,10 @@
         margin-left: 1.25rem;
         margin-right: 1.25rem;
     }
+}
+
+.format-grid #gridPopup .modal-dialog .modal-header .close {
+   margin-left: auto;
 }
 
 .format-grid #gridPopup .modal-dialog .modal-body {

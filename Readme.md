@@ -4,17 +4,17 @@ A topics based format that uses a grid of user selectable images to select a sec
 
 Required release of Moodle
 ==========================
-This version works with Moodle 4.5 version 2024100700.00 (Build: 20241007) and above within the MOODLE_405_STABLE branch until the
+This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
 
 Free software
 =============
 The Grid format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
 
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_grid
-with 'Your Moodle version:' set at 'Moodle 4.5'.
+with 'Your Moodle version:' set at 'Moodle 5.0'.
 
 The secondary source is https://github.com/gjbarnard/moodle-format_grid/tags
 
@@ -30,9 +30,9 @@ If you reuse any of the code then I kindly ask that you make reference to the fo
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
 https://github.com/gjbarnard/moodle-format_grid and doing a 'Pull Request' so that the rest of the Moodle community benefits.
 
-Support
-=======
-Please see Support.md.
+Support and sponsorship
+=======================
+Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
 
 Installation
 ============
@@ -142,7 +142,7 @@ Listed on: https://github.com/gjbarnard/moodle-format_grid/issues
 
 History
 =============
-Please see Changes.md
+Please see [Changes.md](Changes.md).
 
 Developed and maintained by
 ===========================
@@ -151,3 +151,9 @@ G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 - Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
 - Web profile    | [About.me](https://about.me/gjbarnard)
 - Website        | [Website](https://gjbarnard.co.uk)
+
+About me
+--------
+I am an experienced self employed software engineer with decades of development experience in a variety of languages, design
+methodologies and processes.  I have an MSc in Computing as well as a PGCE in Secondary Education.  I'm a member of the British
+Computer Society with Chartered Engineer and Chartered IT Professional status.

@@ -63,7 +63,7 @@ class cmsummary extends cmsummary_base {
             }
 
             // Only calculate on a single section page when not editing.  Many section page already has alternate code.
-            list($mods, $complete, $total, $showcompletion) = $this->calculate_section_stats($showcompletion);
+            list($mods, $complete, $total, $showcompletion) = $this->grid_calculate_section_stats($showcompletion);
 
             $totalactivities = array_reduce($mods, fn($carry, $item) => $carry + ($item["count"] ?? 0), 0);
             $data = (object)[
@@ -88,7 +88,7 @@ class cmsummary extends cmsummary_base {
      * @param int $showcompletion Do we want to determine if completion is to be shown?
      * @return array with [[count by activity type], completed activities, total of activitites]
      */
-    private function calculate_section_stats($showcompletion): array {
+    protected function grid_calculate_section_stats($showcompletion): array {
         $format = $this->format;
         $course = $format->get_course();
         $section = $this->section;

@@ -1,6 +1,18 @@
 History
 =============
 
+Version 500.0.1 - 09/07/2025
+----------------------------
+1. Release candidate version for Moodle 5.0.
+2. Fix 'imagecopybicubic' deprecation.
+3. Fix float to int loss of precision when converting images on PHP 8.3.
+4. Fix 'Using arrays as action menu items is deprecated, use a compatible menu item instead'.
+5. Fix 'The marker param in course view is deprecated. Please use course/format/update.php instead'.
+6. Fix 'Default exception handler: error/Invalid course state action section_unhighlight in core_courseformat\stateactions'.
+7. Fix 'Move section not showing'.
+8. Fix broken Behat move tests.
+9. Fix 'Pop up modal not working' - #239 - Thanks to https://github.com/Syxton for the spot and change information.
+
 Version 405.1.0 - 02/06/2025
 ----------------------------
 1. Remove 'gnumsections' from database if any exist and update Behat tests to use initial 'numsections'.
