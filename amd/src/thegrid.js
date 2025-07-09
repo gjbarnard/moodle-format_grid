@@ -146,9 +146,9 @@ export const init = (sectionnumbers, popup, showcompletion) => {
             modalshown = false;
         });
 
-        jQuery(".grid-section .grid-modal").on('keydown', function (event) {
+        jQuery(".grid-section .grid-modal").on('keydown click', function (event) {
             // Clicked within the modal
-            if ((event.which == 13) || (event.which == 27)) {
+            if ((event.which == 13) || (event.which == 27) || (event.type == 'click')) {
                 event.preventDefault();
                 var trigger = jQuery(event.currentTarget);
                 currentmodalsection = trigger.data('section');
