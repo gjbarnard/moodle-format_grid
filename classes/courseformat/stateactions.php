@@ -14,34 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace format_grid\courseformat;
+
+use format_topics\courseformat\stateactions as stateactions_base;
+
 /**
- * Grid Format.
+ * Contains the core course state actions specific to the grid format.
  *
  * @package    format_grid
- * @copyright  2012 G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard -
- *               {@link https://moodle.org/user/profile.php?id=442195}
- *               {@link https://gjbarnard.co.uk}
+ * @copyright  2022 Ferran Recio <ferran@moodle.com>
+ * @copyright  &copy; 2022 G J Barnard in respect to modifications of standard topics format.
+ * @author     G J Barnard - {@link http://about.me/gjbarnard} and
+ *                           {@link http://moodle.org/user/profile.php?id=442195}
  * @author     Based on code originally written by Paul Krix and Julian Ridden.
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-// Plugin version.
-$plugin->version = 2025040700;
-
-// Required Moodle version.
-$plugin->requires = 2025041400.00; // 5.0 (Build: 20250414).
-
-// Supported Moodle version.
-$plugin->supported = [500, 500];
-
-// Full name of the plugin.
-$plugin->component = 'format_grid';
-
-// Software maturity level.
-$plugin->maturity = MATURITY_RC;
-
-// User-friendly version number.
-$plugin->release = '500.0.1';
+class stateactions extends stateactions_base {
+}

@@ -4,11 +4,19 @@ The Grid format was originally written by Paul Krix, then taken over by Julian R
 uses a grid of user selectable images to pop up a light box of the section.  The format takes time, skill, knowledge and talent to develop.  This 
 is why I'm now asking for your financial support in my endeavours.  Without your support, there will no longer be any further major releases of the format.
 
+About me
+--------
+I am an experienced self employed software engineer with decades of development experience in a variety of languages, design
+methodologies and processes.  I have an MSc in Computing as well as a PGCE in Secondary Education.  I'm a member of the British
+Computer Society with Chartered Engineer and Chartered IT Professional status.
+
+Contact
+-------
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
-- gjbarnard | Gmail dt com address.
+- gjbarnard | gMail dt com address.
+- My website eMail | contact at gjbarnard dt co dt uk.
 - GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjbarnard/moodle-format_grid/issues)'.
-- @gjbarnard | '[X](https://twitter.com/gjbarnard)'.
 
 Open source software
 ====================
@@ -31,18 +39,18 @@ If you make improvements or bug fixes then I would appreciate if you would send 
 [GitHub](https://github.com/gjbarnard/moodle-format_grid/) and doing a 'Pull Request' so that the rest of the Moodle community
 benefits.
 
-Required release of Moodle
+Required version of Moodle
 ==========================
-This version works with Moodle 4.5 version 2024100700.00 (Build: 20241007) and above within the MOODLE_405_STABLE branch until the
+This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
 
 Reporting issues
 ================
-Before reporting an issue, please ensure that you are running the current release for the major release of Moodle you are using.  It
-is essential that you are operating the required release of Moodle as stated above, this is because the format relies on core
-functionality that is out of its control.
+Before reporting an issue, please ensure that you are running the current version for the major release of Moodle you are using.  It
+is essential that you are operating the required version of Moodle as stated above, this is because the format relies on core functionality
+that is out of its control.
 
 If you think you've discovered a genuine bug with the format then please look at the Moodle Course and course formats forum first to see if it
 has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_grid/issues).
@@ -56,10 +64,3 @@ release also helps.  A screen shot can be really useful in visualising the issue
 
 You can use either the '[Course and course formats forum](https://moodle.org/mod/forum/view.php?id=47)' or '[GitHub](https://github.com/gjbarnard/moodle-format_grid/issues)'.
 
-Currently developed and maintained by
-=====================================
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
-
-- Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
-- Web profile    | [About.me](https://about.me/gjbarnard)
-- Website        | [Website](https://gjbarnard.co.uk)

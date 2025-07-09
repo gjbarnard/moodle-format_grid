@@ -17,7 +17,8 @@ Feature: Section break
   @javascript
   Scenario: Create a section 4 break
     When I turn editing mode on
-    And I edit the section "4"
+    And I open section "4" edit menu
+    And I click on "Edit settings" "link" in the "Section 4" "section"
     And I select "Yes" from the "sectionbreak" singleselect
     And I set the field "Section break heading" to "Section four break"
     And I press "Save changes"

@@ -17,7 +17,8 @@ Feature: Image upload
   @_file_upload @javascript
   Scenario: Upload an image to section 2 - note: The duckling image is copyright 'Gareth J Barnard 2020' use only for this test without permission.
     When I turn editing mode on
-    And I edit the section "2"
+    And I open section "2" edit menu
+    And I click on "Edit settings" "link" in the "Section 2" "section"
     And I upload "course/format/grid/tests/fixtures/Duckling.jpg" file to "Section image" filemanager
     And I set the field "Image alt text" to "Duckling"
     And I press "Save changes"
