@@ -67,7 +67,7 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
         while ($section <= $numsections) {
             if ($section != $data->currentsection) {
                 $thissection = $modinfo->get_section_info($section);
-                if ($format->is_section_visible($thissection)) {
+                if ($thissection !== null && $format->is_section_visible($thissection)) {
                     $url = course_get_url($course, $section, ['navigation' => true]);
                     if ($url) {
                         $sectionmenu[$url->out(false)] = get_section_name($course, $section);
