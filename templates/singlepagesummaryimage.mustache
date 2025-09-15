@@ -45,6 +45,6 @@
 {{#right}}
 <div class="d-flex flex-row-reverse">
 {{/right}}
-    <div class="p-1"><img class="img-responsive" src="{{imageuri}}" alt="{{alttext}}"></div>
+    <div class="p-1">{{#imageuri}}<img class="img-responsive" src="{{imageuri}}" alt="{{alttext}}">{{/imageuri}}{{#imageerror}}{{imageerror}}{{/imageerror}}</div>
     <div class="p-1{{^centre}} w-100{{/centre}}">{{{summary}}}</div>
 </div>

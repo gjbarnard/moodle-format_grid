@@ -1,6 +1,10 @@
 History
 =============
 
+Version 405.1.5 - 15/09/2025
+----------------------------
+1. Fix 'Broken image files used in sections can break entire course' - #246.
+
 Version 405.1.4 - 07/08/2025
 ----------------------------
 1. Fix section course module summary showing 'Activities:' without a number.

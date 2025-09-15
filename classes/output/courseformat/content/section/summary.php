@@ -34,6 +34,7 @@ use core_courseformat\base as course_format;
 use context_course;
 use core\output\renderer_base;
 use format_grid\toolbox;
+use moodle_exception;
 use section_info;
 use stdClass;
 
@@ -108,6 +109,8 @@ class summary extends summary_base {
                         $data->left = true;
                 }
 
+                $data->summary = $summary;
+
                 $courseid = $this->thesection->course;
                 $sectionid = $this->thesection->id;
                 $coursesectionimage = $DB->get_record(
@@ -118,31 +121,36 @@ class summary extends summary_base {
                     $fs = get_file_storage();
                     $coursecontext = context_course::instance($courseid);
                     $toolbox = toolbox::get_instance();
-                    $replacement = $toolbox->check_displayed_image(
-                        $coursesectionimage,
-                        $courseid,
-                        $coursecontext->id,
-                        $sectionid,
-                        $this->format,
-                        $fs
-                    );
-                    if (!empty($replacement)) {
-                        $coursesectionimage = $replacement;
-                    }
-
-                    if ($coursesectionimage->displayedimagestate >= 1) {
-                        // Yes.
-                        $displayediswebp = (get_config('format_grid', 'defaultdisplayedimagefiletype') == 2);
-                        $data->imageuri = $toolbox->get_displayed_image_uri(
+                    try {
+                        $replacement = $toolbox->check_displayed_image(
                             $coursesectionimage,
+                            $courseid,
                             $coursecontext->id,
                             $sectionid,
-                            $displayediswebp
+                            $this->format,
+                            $fs
                         );
-                        $sectionformatoptions = $this->format->get_format_options($this->thesection);
-                        $data->alttext = $sectionformatoptions['sectionimagealttext'];
 
-                        $data->summary = $summary;
+                        if (!empty($replacement)) {
+                            $coursesectionimage = $replacement;
+                        }
+
+                        if ($coursesectionimage->displayedimagestate >= 1) {
+                            // Yes.
+                            $displayediswebp = (get_config('format_grid', 'defaultdisplayedimagefiletype') == 2);
+                            $data->imageuri = $toolbox->get_displayed_image_uri(
+                                $coursesectionimage,
+                                $coursecontext->id,
+                                $sectionid,
+                                $displayediswebp
+                            );
+                            $sectionformatoptions = $this->format->get_format_options($this->thesection);
+                            $data->alttext = $sectionformatoptions['sectionimagealttext'];
+
+                            $o = $output->render_from_template('format_grid/singlepagesummaryimage', $data);
+                        }
+                    } catch (moodle_exception $me) {
+                        $data->imageerror = $me->getMessage();
 
                         $o = $output->render_from_template('format_grid/singlepagesummaryimage', $data);
                     }
