@@ -130,6 +130,15 @@ class content extends content_base {
             $data->singlesection = array_shift($data->sections);
             $data->sectionreturn = $singlesectionno;
             $data->maincoursepage = new url('/course/view.php', ['id' => $course->id]);
+
+            // Override the visibility if the user can see the section.
+            // Reference: lib/modinfolib.php with regards to 'uservisible'.
+            $section = $format->get_section($singlesectionno);
+            if (!$section->visible && $section->uservisible) {
+                $data->singlesection->visibility->notavailable = false;
+                $data->singlesection->visibility->hiddenfromstudents = true;
+            }
+
         } else {
             $toolbox = toolbox::get_instance();
 
@@ -263,6 +272,14 @@ class content extends content_base {
                     // Visibility information.
                     $sectionimages[$section->id]->ishidden = $sectionvisiblity[$section->id]->ishidden;
                     if ($sectionimages[$section->id]->ishidden) {
+
+                        // Override the visibility if the user can see the section.
+                        // Reference: lib/modinfolib.php with regards to 'uservisible'.
+                        if ($section->uservisible) {
+                            $sectionvisiblity[$section->id]->visibility->notavailable = false;
+                            $sectionvisiblity[$section->id]->visibility->hiddenfromstudents = true;
+                        }
+
                         $sectionimages[$section->id]->visibility = $sectionvisiblity[$section->id]->visibility;
                         $sectionimages[$section->id]->hiddenfromstudents =
                             (!empty($sectionimages[$section->id]->visibility->hiddenfromstudents));
