@@ -30,9 +30,9 @@ If you reuse any of the code then I kindly ask that you make reference to the fo
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
 https://github.com/gjbarnard/moodle-format_grid and doing a 'Pull Request' so that the rest of the Moodle community benefits.
 
-Support and sponsorship
-=======================
-Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
+Information
+===========
+Please see [Information.md](Information.md).
 
 Installation
 ============

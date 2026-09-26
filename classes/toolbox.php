@@ -768,8 +768,12 @@ class toolbox {
                     }
                     if (($lock instanceof \core\lock\lock) || (defined('BEHAT_SITE_RUNNING'))) {
                         try {
-                            $files = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage',
-                                $coursesectionimage->sectionid);
+                            $files = $fs->get_area_files(
+                                $coursecontext->id,
+                                'format_grid',
+                                'sectionimage',
+                                $coursesectionimage->sectionid
+                            );
                             foreach ($files as $file) {
                                 if (!$file->is_directory()) {
                                         $coursesectionimage = $toolbox->setup_displayed_image(

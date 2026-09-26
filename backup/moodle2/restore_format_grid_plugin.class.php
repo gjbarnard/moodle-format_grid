@@ -144,8 +144,7 @@ class restore_format_grid_plugin extends restore_format_plugin {
             return;
         }
 
-        if (!isset($data['tags']['numsections']) ||
-            !isset($data['tags']['gnumsections'])) {
+        if (!isset($data['tags']['numsections']) || !isset($data['tags']['gnumsections'])) {
             // Backup file does not have '(g)numsections'.
             return;
         }
@@ -165,8 +164,10 @@ class restore_format_grid_plugin extends restore_format_plugin {
                 if ($task->get_setting_value($key . '_included')) {
                     $sectionnum = (int)$section->title;
                     if ($sectionnum > $numsections && $sectionnum > $this->originalnumsections) {
-                        $DB->execute("UPDATE {course_sections} SET visible = 0 WHERE course = ? AND section = ?",
-                            [$task->get_courseid(), $sectionnum]);
+                        $DB->execute(
+                            "UPDATE {course_sections} SET visible = 0 WHERE course = ? AND section = ?",
+                            [$task->get_courseid(), $sectionnum]
+                        );
                     }
                 }
             }
@@ -214,7 +215,10 @@ class restore_format_grid_plugin extends restore_format_plugin {
             $courseformat = course_get_format($courseid);
             if ($courseformat->get_format() == 'grid') {
                 // Not calling the format's 'restore_gnumsections' as '-1' fails validation.
-                $DB->set_field('course_format_options', 'value', -1,
+                $DB->set_field(
+                    'course_format_options',
+                    'value',
+                    -1,
                     [
                         'courseid' => $courseid,
                         'name' => 'gnumsections',

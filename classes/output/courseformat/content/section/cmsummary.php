@@ -50,18 +50,22 @@ class cmsummary extends cmsummary_base {
     public function export_for_template(\renderer_base $output): stdClass {
         global $PAGE;
 
-        $data = new stdClass;
+        $data = new stdClass();
         if (!$PAGE->user_is_editing()) {
             $showcompletion = false;
             $coursesettings = $this->format->get_settings();
             $sectionformatoptions = $this->format->get_format_options($this->section);
-            if (((!empty($coursesettings['showcompletion'])) && ($coursesettings['showcompletion'] == 2)) &&
-                ((!empty($sectionformatoptions['showsectioncompletion'])) && ($sectionformatoptions['showsectioncompletion'] == 2))) {
+            if (
+                ((!empty($coursesettings['showcompletion'])) && ($coursesettings['showcompletion'] == 2)) &&
+                ((!empty($sectionformatoptions['showsectioncompletion'])) && ($sectionformatoptions['showsectioncompletion'] == 2))
+            ) {
                 $showcompletion = true;
             }
 
             // Only calculate on a single section page when not editing.  Many section page already has alternate code.
+            // phpcs:disable Universal.Lists.DisallowLongListSyntax.Found
             list($mods, $complete, $total, $showcompletion) = $this->grid_calculate_section_stats($showcompletion);
+            // phpcs:enable Universal.Lists.DisallowLongListSyntax.Found
 
             $totalactivities = array_reduce($mods, fn($carry, $item) => $carry + ($item["count"] ?? 0), 0);
             $data = (object)[
@@ -118,8 +122,10 @@ class cmsummary extends cmsummary_base {
                     $showcompletion = true;
                     $total++;
                     $completiondata = $completioninfo->get_data($thismod, true);
-                    if ($completiondata->completionstate == COMPLETION_COMPLETE ||
-                            $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
+                    if (
+                        $completiondata->completionstate == COMPLETION_COMPLETE ||
+                        $completiondata->completionstate == COMPLETION_COMPLETE_PASS
+                    ) {
                         $complete++;
                     }
                 }

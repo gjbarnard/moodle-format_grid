@@ -1,0 +1,17 @@
+name: format_grid
+summary: Grid course format.
+description: |
+  The Grid format was originally written by Paul Krix, then taken over by Julian Ridden, and then me in 2012.  It is topics based format that 
+  uses a grid of user selectable images to pop up a light box of the section.
+labels:
+  - fully-free
+  - donation-supported
+  - commercial-support-available
+screenshots:
+  - path: .camp/screenshots/grid_logo.jpg
+    caption: Logo
+links:
+  docs: https://github.com/gjbarnard/moodle-format_grid/blob/main/Readme.md
+  changelog: https://github.com/gjbarnard/moodle-format_grid/blob/main/Changes.md
+  issues: https://github.com/gjbarnard/moodle-format_grid/issues
+  donate: https://github.com/gjbarnard/moodle-format_grid/blob/main/Information.md

@@ -25,7 +25,7 @@
 
 import Component from 'core_courseformat/local/content';
 // Course actions is needed for actions that are not migrated to components.
-import GridDispatchActions from 'format_grid/local/content/actions';
+import DispatchActions from 'core_courseformat/local/content/actions';
 import * as CourseEvents from 'core_course/events';
 
 export default class GridComponent extends Component {
@@ -107,7 +107,7 @@ export default class GridComponent extends Component {
         if (this.reactive.supportComponents) {
             // Actions are only available in edit mode.
             if (this.reactive.isEditing) {
-                new GridDispatchActions(this);
+                new DispatchActions(this);
             }
 
             // Mark content as state ready.

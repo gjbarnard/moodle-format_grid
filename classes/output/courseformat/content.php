@@ -204,7 +204,7 @@ class content extends content_base {
                 // Visibility info for grid.
                 $sectionvisiblity = [];
                 foreach ($sections as $section) {
-                    $sectionvisiblity[$section->id] = new stdClass;
+                    $sectionvisiblity[$section->id] = new stdClass();
                     $sectionvisiblity[$section->id]->ishidden = (!empty($section->ishidden));
                     $sectionvisiblity[$section->id]->visibility = $section->visibility;
                 }
@@ -221,8 +221,11 @@ class content extends content_base {
                         );
                     } else if (empty($sectionimages[$section->id]->imageerror)) {
                         $sectionimages[$section->id]->imageerror =
-                            get_string('cannotconvertuploadedimagetodisplayedimage', 'format_grid',
-                                json_encode($sectionimages[$section->id]));
+                            get_string(
+                                'cannotconvertuploadedimagetodisplayedimage',
+                                'format_grid',
+                                json_encode($sectionimages[$section->id])
+                            );
                     }
                 } else {
                     // No.
@@ -266,7 +269,8 @@ class content extends content_base {
                         $sectionimages[$section->id]->visibility = $sectionvisiblity[$section->id]->visibility;
                         $sectionimages[$section->id]->hiddenfromstudents =
                             (!empty($sectionimages[$section->id]->visibility->hiddenfromstudents));
-                        $sectionimages[$section->id]->notavailable = (!empty($sectionimages[$section->id]->visibility->notavailable));
+                        $sectionimages[$section->id]->notavailable =
+                            (!empty($sectionimages[$section->id]->visibility->notavailable));
                         $sectionimages[$section->id]->hasbadge = true;
                     }
                     $sectionimages[$section->id]->sectionuservisible = $section->uservisible;
@@ -388,14 +392,17 @@ class content extends content_base {
             }
         }
 
-        $coursesettings = $format->get_settings();
-        $sectionzeronotingrid = ($coursesettings['sectionzeroingrid'] == 1);
-        if ($sectionzeronotingrid) {
-            // Get rid of section 0.
-            if (!empty($sectioninfos)) {
+        if (!empty($sectioninfos)) {
+            $coursesettings = $format->get_settings();
+            $sectionzeronotingrid = ($coursesettings['sectionzeroingrid'] == 1);
+            if ($sectionzeronotingrid) {
+                // Get rid of section 0.
                 array_shift($sectioninfos);
+            } else {
+                $numsections++;  // Section zero is in the grid.
             }
         }
+
         foreach ($sectioninfos as $thissection) {
             /* The course/view.php check the section existence but the output can be called from other parts so we need to
                check it. */
@@ -429,12 +436,19 @@ class content extends content_base {
             $section->id = $thissection->id;
             $section->num = $thissection->sectionnum;
             $section->name = $output->section_title_without_link($thissection, $course);
-            if ((!$editing) &&
+            if (
+                (!$editing) &&
                 (!empty($sectioncompletion[$thissection->id])) &&
                 ((!empty($settings['showcompletion'])) &&
-                ($settings['showcompletion'] == 2))) {
+                ($settings['showcompletion'] == 2))
+            ) {
                 $this->calculate_section_activity_completion(
-                    $thissection->sectionnum, $course, $modinfo, $deligatedsections, $output);
+                    $thissection->sectionnum,
+                    $course,
+                    $modinfo,
+                    $deligatedsections,
+                    $output
+                );
                 if (!empty($this->sectioncompletionmarkup[$thissection->section])) {
                     $section->sectioncompletionmarkup = $this->sectioncompletionmarkup[$thissection->section];
                 }
@@ -456,7 +470,12 @@ class content extends content_base {
      * @param renderer_base $output typically, the renderer that's calling this method.
      */
     protected function calculate_section_activity_completion(
-        $sectionnum, $course, $modinfo, $deligatedsections, renderer_base $output) {
+        $sectionnum,
+        $course,
+        $modinfo,
+        $deligatedsections,
+        renderer_base $output
+    ) {
         if (empty($this->sectioncompletioncalculated[$sectionnum])) {
             $this->sectioncompletionmarkup[$sectionnum] = '';
             if (empty($modinfo->sections[$sectionnum])) {
@@ -473,12 +492,24 @@ class content extends content_base {
                 $completioninfo = new completion_info($course);
 
                 $this->calculate_section_activity_completion_modules(
-                    $sectionnum, $modinfo, $completioninfo, $total, $complete, $asectionisavailable);
+                    $sectionnum,
+                    $modinfo,
+                    $completioninfo,
+                    $total,
+                    $complete,
+                    $asectionisavailable
+                );
                 // Deligated sections.
                 if (!empty($deligatedsections[$sectionnum])) {
                     foreach ($deligatedsections[$sectionnum] as $deligatedsectionnum) {
                         $this->calculate_section_activity_completion_modules(
-                            $deligatedsectionnum, $modinfo, $completioninfo, $total, $complete, $asectionisavailable);
+                            $deligatedsectionnum,
+                            $modinfo,
+                            $completioninfo,
+                            $total,
+                            $complete,
+                            $asectionisavailable
+                        );
                     }
                 }
             }
@@ -554,7 +585,13 @@ class content extends content_base {
      * @param boolean $asectionisavailable One of more modules are available in the section.  Reference to called variable.
      */
     protected function calculate_section_activity_completion_modules(
-        $sectionnum, $modinfo, $completioninfo, &$total, &$complete, &$asectionisavailable) {
+        $sectionnum,
+        $modinfo,
+        $completioninfo,
+        &$total,
+        &$complete,
+        &$asectionisavailable
+    ) {
         foreach ($modinfo->sections[$sectionnum] as $cmid) {
             $thismod = $modinfo->cms[$cmid];
 

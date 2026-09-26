@@ -55,12 +55,10 @@ that is out of its control.
 If you think you've discovered a genuine bug with the format then please look at the Moodle Course and course formats forum first to see if it
 has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_grid/issues).
 
-I operate a policy that I will fix all genuine issues in 'my' (not other developers of the format) code, when fully described and
-replicatable.
+I operate a policy that I will fix all genuine issues when fully described and replicatable.
 
 It is essential that you provide as much information as possible, the critical information being the contents of the format's
 version.php file / or the top of the 'Information' settings tab.  Other information such as specific Moodle release, format name and
 release also helps.  A screen shot can be really useful in visualising the issue along with any files you consider to be relevant.
 
 You can use either the '[Course and course formats forum](https://moodle.org/mod/forum/view.php?id=47)' or '[GitHub](https://github.com/gjbarnard/moodle-format_grid/issues)'.
-

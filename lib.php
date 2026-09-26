@@ -127,20 +127,6 @@ class format_grid extends core_courseformat\base {
     }
 
     /**
-     * Method used to get the maximum number of sections for this course format without deligated.
-     * @return int Maximum number of sections.
-     */
-    public function get_max_sections_without_deligated() {
-        $maxsections = $this->get_max_sections();
-
-        if (!empty($maxsections)) {
-            $maxsections -= $this->get_number_of_deligated_sections();
-        }
-
-        return $maxsections;
-    }
-
-    /**
      * Get the number of deligated sections.
      *
      * @return int Number of deligated sections.
@@ -235,22 +221,6 @@ class format_grid extends core_courseformat\base {
     }
 
     /**
-     * Returns if an specific section is visible to the current user - changed parent version.
-     *
-     * Formats can overrride this method to implement any special section logic.
-     *
-     * @param section_info $section the section modinfo
-     * @return bool;
-     */
-    protected function parent_is_section_visible(section_info $section): bool {
-        // It is unlikely that a section is orphan, but it needs to be checked.
-        if ($section->is_orphan() && !has_capability('moodle/course:viewhiddensections', $this->get_context())) {
-            return false;
-        }
-        return $section->uservisible;
-    }
-
-    /**
      * Returns if an specific section is visible to the current user.
      *
      * Formats can overrride this method to implement any special section logic.
@@ -271,7 +241,7 @@ class format_grid extends core_courseformat\base {
             // Don't show.
             return false;
         }
-        $shown = $this->parent_is_section_visible($section);
+        $shown = parent::is_section_visible($section);
         if (($shown) && ($section->sectionnum == 0)) {
             // Show section zero if summary has content, otherwise check modules.
             $shown = $this->section_can_be_shown($section);
@@ -477,7 +447,7 @@ class format_grid extends core_courseformat\base {
 
         $url = new moodle_url('/course/view.php', ['id' => $course->id]);
         if ($this->uses_sections() && $sectionno !== null) {
-            $url->set_anchor('section-'.$sectionno);
+            $url->set_anchor('section-' . $sectionno);
         }
 
         return $url;
@@ -776,8 +746,11 @@ class format_grid extends core_courseformat\base {
             // The "Number of sections" option is no longer available when editing course, instead teachers should
             // delete and add sections when needed.
             $courseconfig = get_config('moodlecourse');
-            $max = (int)$courseconfig->maxsections;
-            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
+            $maxsections = get_config('moodlecourse', 'maxsections');
+            if (!isset($maxsections) || !is_numeric($maxsections)) {
+                $maxsections = 52;
+            }
+            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $maxsections));
             $mform->setType('numsections', PARAM_INT);
             if (is_null($mform->getElementValue('numsections'))) {
                 $mform->setDefault('numsections', $courseconfig->numsections);

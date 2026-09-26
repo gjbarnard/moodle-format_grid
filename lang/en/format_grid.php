@@ -45,6 +45,7 @@ $string['newsection'] = 'New section';
 $string['hidefromothers'] = 'Hide section';
 $string['showfromothers'] = 'Show';
 $string['currentsection'] = 'This section';
+$string['jumptosection'] = 'Jump to section';
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
 

@@ -1,6 +1,15 @@
 History
 =============
 
+Version 500.1.1 - 26/09/2026
+----------------------------
+1. Address deprecation of 'get_max_sections'.
+2. Fix 'Restricted Subsections Affecting Course Index Display' - Ref: https://moodle.org/mod/forum/discuss.php?d=470853.
+3. Fix 'Accessibility - "Jump to" menu on section page needs label'.  Thanks to [Stefan Topfstedt](https://github.com/stopfstedt)
+   for the patch.
+4. Fix 'Last added section is hidden in Grid course format when "Section zero in grid " is selected' - #252.
+5. Fix 'Section header fails rendering quote marks', thanks to 'noy-boop' for the patch - #253.
+
 Version 500.1.0 - 15/09/2025
 ----------------------------
 1. Fix 'Broken image files used in sections can break entire course' - #246.

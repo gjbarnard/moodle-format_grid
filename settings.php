@@ -52,7 +52,7 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_information('format_grid/formatinformation', '', '', 500));
 
     // Support.md.
-    $page->add(new admin_setting_markdown('format_grid/formatsupport', '', '', 'SupportAndSponsorship.md'));
+    $page->add(new admin_setting_markdown('format_grid/formatsupport', '', '', 'Information.md'));
 
     // Changes.md.
     $page->add(new admin_setting_markdown(
@@ -188,7 +188,7 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_configcheckbox(
         'format_grid/indentation',
         new lang_string('indentation', 'format_grid'),
-        new lang_string('indentation_help', 'format_grid').'<br />'.$link,
+        new lang_string('indentation_help', 'format_grid') . '<br />' . $link,
         $default
     ));
 

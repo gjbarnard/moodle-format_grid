@@ -29,10 +29,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 // Plugin version.
-$plugin->version = 2025040705;
+$plugin->version = 2025040706;
 
 // Required Moodle version.
-$plugin->requires = 2025041400.00; // 5.0 (Build: 20250414).
+$plugin->requires = 2025041400.00; // 5.0 (Build: 20250414).  phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 
 // Supported Moodle version.
 $plugin->supported = [500, 500];
@@ -44,4 +44,4 @@ $plugin->component = 'format_grid';
 $plugin->maturity = MATURITY_STABLE;
 
 // User-friendly version number.
-$plugin->release = '500.1.0';
+$plugin->release = '500.1.1';
