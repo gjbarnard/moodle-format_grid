@@ -1,6 +1,10 @@
 History
 =============
 
+Version 500.1.2 - 27/09/2026
+----------------------------
+1. Re-release to remove files in 500.1.1 release that causes Behat failure.
+
 Version 500.1.1 - 26/09/2026
 ----------------------------
 1. Address deprecation of 'get_max_sections'.
